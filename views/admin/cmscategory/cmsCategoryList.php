@@ -56,7 +56,7 @@
 									</tr>
 									<tr>
 										<td>Page URL: </td>
-										<td>http://www.musikkglede.no/musikkglede_page/<?echo stripslashes($objCmsCategory->getSeoName())?>.html</td>
+										<td>http://www.musikkgaver.no/musikkgaver_page/<?echo stripslashes($objCmsCategory->getSeoName())?>.html</td>
 									</tr>
 									<tr>
 										<td>Is Component: </td>
