@@ -34,7 +34,7 @@
 				font-size:18px;				
 			}
 			.text:hover {
-			    opacity:0.8;
+			    opacity:0.7;
 			}
 			
 			img {

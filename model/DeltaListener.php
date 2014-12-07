@@ -325,10 +325,8 @@ class model_DeltaListener extends MachII_framework_Listener
 	function findAll(&$event) {
 		
 		$objAppSession=new AppSession();
-		$sLang = $objAppSession->getSession('sLang');
-		
 		$objDeltaGateway = new DeltaGateway();
-		$arrDeltas = $objDeltaGateway->findAll($sLang);
+		$arrDeltas = $objDeltaGateway->findAll();
 		$event->setArg("arrDeltas", $arrDeltas);
 	}
 	

@@ -1,5 +1,5 @@
 <div class="ui-widget-header ui-corner-all center-header">
-	Header - Picture (Picture width = 1000 pixels, Picture height = 200 pixels)
+	Header - Picture (Picture width = 1920 pixels, Picture height = 550 pixels)
 </div>
 
 <?if ($event->getArg('message') != "") {?>

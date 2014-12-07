@@ -12,7 +12,7 @@ if (!empty($_FILES)) {
 	$tempFile = $_FILES['Filedata']['tmp_name'];
 	$targetFile =  '../../upload/'.$pictureRandomId.'.jpg';?>
 	<?if(move_uploaded_file($tempFile,$targetFile)) {
-		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'proper', 1000, 1000, '../../upload');
+		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'proper', 1920, 1920, '../../upload');
 		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'micro', 150, 150, '../../upload');
 		$arr = $objImages->ratioResizeImg($pictureRandomId.'.jpg', 'thumb', 0, 0, '../../upload');		
 		$objDeltaPictureDao = new DeltaPictureDao();

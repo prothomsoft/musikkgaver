@@ -25,6 +25,7 @@
 <input type="hidden" name="Keyword" id="Keyword" value="<?=$event->getArg('Keyword')?>">
 <input type="hidden" name="Description" id="Description" value="<?=$event->getArg('Description')?>">
 <input type="hidden" name="LongDescription" id="LongDescription" value="<?=$event->getArg('LongDescription')?>">
+<input type="hidden" name="ShortDescription" id="ShortDescription" value="<?=$event->getArg('ShortDescription')?>">
 
 <div class="ui-widget-content ui-corner-all center-content">
 	
@@ -50,18 +51,14 @@
 		
 <div class="ui-widget-content ui-corner-all center-content">
 	<fieldset>
-		<label for="Name">Name</label>
+		<label for="Name">Caption</label>
 		<input type="text" name="Name" id="Name" value="<?echo $event->getArg('Name');?>" class="text ui-widget-content ui-corner-all <?if ($event->getArg("missingField") == "Name") echo "ui-state-error"?>" />
-	</fieldset>	
-</div>
-
-<div class="ui-helper-clearfix spacer"></div>
-
-<div class="ui-widget-content ui-corner-all center-content">
-		<fieldset style="width:750px;">
-			<label for="ShortDescription">Text</label>
-			<textarea name="ShortDescription" id="ShortDescription" cols="91" rows="15" class="wymeditor"><?echo htmlspecialchars_decode($event->getArg('ShortDescription'));?></textarea>			
-		</fieldset>		
+	</fieldset>
+	
+	<fieldset>
+		<label for="Keyword">URL</label>
+		<input type="text" name="Keyword" id="Keyword" value="<?echo $event->getArg('Keyword');?>" class="text ui-widget-content ui-corner-all <?if ($event->getArg("missingField") == "Keyword") echo "ui-state-error"?>" />
+	</fieldset>
 </div>
 
 <div class="ui-helper-clearfix spacer"></div>

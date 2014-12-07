@@ -122,7 +122,7 @@ class DeltaGateway {
       $query  = "SELECT DeltaId,ClubId,BetaId,Name,SeoName,Keyword,Description,ShortDescription,LongDescription,UpdateDate,DeltaOrder,Status,ImgDriveName,EventDate,EventCalendar  FROM Delta";
       $query .= " WHERE 1 = 1";
       $query .= " ORDER BY DeltaOrder ASC";
-      $DB->query($query);
+	  $DB->query($query);
       $arr = "";
       if ($DB->numRows()>0)
       {
