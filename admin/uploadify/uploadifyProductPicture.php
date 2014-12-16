@@ -12,9 +12,9 @@ if (!empty($_FILES)) {
 	$tempFile = $_FILES['Filedata']['tmp_name'];
 	$targetFile =  '../../upload/'.$pictureRandomId.'.jpg';?>
 	<?if(move_uploaded_file($tempFile,$targetFile)) {
-		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'proper', 700, 700, '../../upload');
-		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'thumb', 300, 300, '../../upload');
-		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'micro', 140, 140, '../../upload');
+		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'proper', 800, 600, '../../upload');
+		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'thumb', 480, 360, '../../upload');
+		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'micro', 140, 105, '../../upload');
 		$objProductPictureDao = new ProductPictureDao();
         $objProductPictureBean = new ProductPictureBean();
         $objProductPictureBean->setImgDriveName($pictureRandomId.'.jpg');

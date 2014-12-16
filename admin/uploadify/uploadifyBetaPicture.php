@@ -12,17 +12,13 @@ if (!empty($_FILES)) {
 	$tempFile = $_FILES['Filedata']['tmp_name'];
 	$targetFile =  '../../upload/'.$pictureRandomId.'.jpg';?>
 	<?if(move_uploaded_file($tempFile,$targetFile)) {
-		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'proper', 480, 300, '../../upload');
-		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'micro', 160, 100, '../../upload');
-		$arr = $objImages->ratioResizeImg($pictureRandomId.'.jpg', 'thumb', 0, 0, '../../upload');		
+		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'proper', 800, 600, '../../upload');
+		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'thumb', 480, 360, '../../upload');
+		$objImages->ratioResizeImg($pictureRandomId.'.jpg', 'micro', 140, 105, '../../upload');
 		$objBetaPictureDao = new BetaPictureDao();
         $objBetaPictureBean = new BetaPictureBean();
         $objBetaPictureBean->setImgDriveName($pictureRandomId.'.jpg');
         $objBetaPictureBean->setBetaId($BetaId);
-        if($arr) {
-        	$objBetaPictureBean->setIW($arr[0]);
-	        $objBetaPictureBean->setIH($arr[1]);
-        }
         $objBetaPictureDao->create($objBetaPictureBean);
         
         // sets first uploaded pictures as default

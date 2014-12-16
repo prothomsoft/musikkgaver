@@ -11,10 +11,10 @@ class ProductGateway {
       $DB = new DB();
       $DB->connect();
       $query ="SELECT P.ProductId,P.UserId,P.BetaId,P.ProductCategoryId,P.ProductCategoryLevelOneName,P.ProductCategoryLevelOneSeoName,P.ProductCategoryLevelTwoName,P.ProductCategoryLevelTwoSeoName,P.Name,P.SeoName,P.ExtName,P.Code,P.ShortDescription,P.PreviewDescription,P.LongDescription,P.ContactDescription,P.HDescription,P.CreationDate,P.UpdateDate,P.ProductOrder,P.HomeProductOrder,P.Status,P.IsBestProduct,P.IsHomeProduct,P.IsAvailable,P.IsVisible,P.ImgDriveName,P.ImgFileName,P.ImgAlt,P.Price,P.PriceOld,P.Weight,P.ProductType,P.Box,P.Delivery,P.Points,P.PointsMinus ";
-      $query .="FROM Product P, ProductCategory PC ";
-      $query .="WHERE P.ProductCategoryId=PC.ProductCategoryId ";
+      $query .="FROM Product P ";
+	  $query .= "WHERE P.IsVisible=1 ";
       $query .="AND P.ProductId IN (".$listId.")";
-      $query .= " AND IsVisible = 1";
+      
       $DB->query($query);
       $arr = "";
       if ($DB->numRows()>0)
@@ -211,23 +211,15 @@ class ProductGateway {
    }
    
    
-   public function findProductAll($productCategorySeoName){
+   public function findProductAll($productCategoryId){
       
       $DB = new DB();
       $DB->connect();
       $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus FROM Product ";
-      
-      if ($productCategorySeoName != "\'all\'")	{
-		// before upload if ($productCategorySeoName != "\'all\'")	{ 
-			$query .= "WHERE ";
-			$query .= "(ProductCategoryLevelTwoSeoName IN (".stripslashes($productCategorySeoName).") ";
-			$query .= " OR ProductCategoryLevelOneSeoName IN (".stripslashes($productCategorySeoName).")) ";
-			$query .= " AND IsVisible = 1 ";
-		} else {
-			$query .= "WHERE IsVisible = 1 ";
-		}
-      $query .= " ORDER BY ProductOrder ASC";
-      
+      $query .= "WHERE IsVisible = 1 ";
+	  $query .= "AND BetaId = '".$productCategoryId."' ";
+      $query .= "ORDER BY ProductOrder ASC";
+	  
       $DB->query($query);
       $arr = "";
       if ($DB->numRows()>0)
@@ -284,7 +276,7 @@ class ProductGateway {
       return $arr;
    }
    
-   public function findProductAllLimited($productCategorySeoName, $currentPage,$itemsPerPage){
+   public function findProductAllLimited($productCategoryId, $currentPage,$itemsPerPage){
    	  
 		if ($currentPage != '') {
 	   		$page=$currentPage;
@@ -304,17 +296,10 @@ class ProductGateway {
 	   	$DB = new DB();
 	    $DB->connect();
 	    $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus FROM Product ";
-	    if ($productCategorySeoName != "\'all\'")	{
-		// before upload if ($productCategorySeoName != "\'all\'")	{ 
-			$query .= "WHERE ";
-			$query .= "(ProductCategoryLevelTwoSeoName IN (".stripslashes($productCategorySeoName).") ";
-			$query .= " OR ProductCategoryLevelOneSeoName IN (".stripslashes($productCategorySeoName).")) ";
-			$query .= " AND IsVisible = 1 ";
-		} else {
-			$query .= "WHERE IsVisible = 1 ";
-		}
-	    $query .= " ORDER BY ProductOrder ASC";
-      	$query .= " LIMIT ".$start.",".$limit;
+	    $query .= "WHERE IsVisible = 1 ";
+		$query .= "AND BetaId = '".$productCategoryId."' ";
+		$query .= "ORDER BY ProductOrder ASC ";
+      	$query .= "LIMIT ".$start.",".$limit;
       	
       	$DB->query($query);
 	    $arr = "";

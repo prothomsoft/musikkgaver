@@ -268,7 +268,7 @@
 
 /* line 204, ../sass/theme-shop.scss */
 .star-rating:after {
-  content: "    ";
+  content: "ď ď ď ď ď";
   font-family: "FontAwesome";
   color: black;
   display: block;
@@ -278,7 +278,7 @@
 
 /* line 213, ../sass/theme-shop.scss */
 .rating .star-bg:after {
-  content: "    ";
+  content: "ď ď ď ď ď";
   font-family: "FontAwesome";
   color: black;
   display: block;
@@ -417,7 +417,7 @@
 /* line 333, ../sass/theme-shop.scss */
 .shop_table td {
   border: 1px solid #dddddd;
-  padding: 30px;
+  padding: 10px;
 }
 /* line 339, ../sass/theme-shop.scss */
 .shop_table .product-name,
@@ -442,7 +442,7 @@
 }
 /* line 354, ../sass/theme-shop.scss */
 .shop_table .product-quantity {
-  width: 150px;
+  width: 30px;
 }
 /* line 357, ../sass/theme-shop.scss */
 .shop_table td.product-quantity {

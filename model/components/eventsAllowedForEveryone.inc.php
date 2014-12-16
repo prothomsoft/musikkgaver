@@ -96,6 +96,9 @@ class EventsAllowedForEveryone {
 	  saveperfumetka1,
 	  saveperfumetka2,
 	  
+	  //shopping cart new
+	  shoppingcart,
+	  
 /*	  blog,
 	  wydarzenie,
 	  zdjecia,

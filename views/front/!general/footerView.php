@@ -14,42 +14,35 @@ $oT = new Translator('template3',$sLang);
 		            <div class="upper-foot">
 						<div class="row">
 							<div class="col-xs-6 col-sm-6 col-md-6">
-								<h2>Categories</h2>
+								<h2>Kategorier</h2>
 								<ul class="list-inline tagclouds">
-									<li><a href="<?=$SN?>products.html">Dans</a></li>
-									<li><a href="<?=$SN?>products.html">Postkort</a></li>
-									<li><a href="<?=$SN?>products.html">Skole / Kontor</a></li>
-									<li><a href="<?=$SN?>products.html">Paraplyer</a></li>
-									<li><a href="<?=$SN?>products.html">Handlenett / Vesker / Kofferter</a></li>
-									<li><a href="<?=$SN?>products.html">Magneter</a></li>
-									<li><a href="<?=$SN?>products.html">Pynt / Interiør</a></li>
-									<li><a href="<?=$SN?>products.html">Smykker / Velvære</a></li>
-									<li><a href="<?=$SN?>products.html">Kjøkken</a></li>
-									<li><a href="<?=$SN?>products.html">Spill/ Spilledåser</a></li>
-									<li><a href="<?=$SN?>products.html">Baby / Graviditet</a></li>
-									<li><a href="<?=$SN?>products.html">Noter / Bøker / CD / DVD</a></li>
-									<li><a href="<?=$SN?>products.html">Instrumenter</a></li>
-									<li><a href="<?=$SN?>products.html">Gavekort</a></li>
-									<li><a href="<?=$SN?>products.html">Diverse</a></li>
+								<?$arrBetas = $event->getArg("arrBetas");?>
+								<?if($arrBetas) {?>
+									<?foreach($arrBetas as $objBeta) {?>
+										<li><a href="<?=$SN?>products/<?=$objBeta->getBetaId();?>/<?=$objBeta->getSeoName();?>.html"><?=$objBeta->getName();?></a></li>
+									<?}?>						
+								<?}?>
 								</ul>									
 							</div>
+							
 							<div class="col-xs-6 col-sm-6 col-md-3">
-								<h2>Contact detail</h2>
+								<h2>Kontaktinformasjon</h2>
 								<address>
-									<i class="fa fa-map-marker"></i> No.123 Pellentesque nec erat.<br>
-									Aenean semper, neque non faucibus.<br>
-									<i class="fa fa-phone"></i> Phone. (123) 456-7890<br>
-									<i class="fa fa-fax"></i> Fax. (123) 456-7890<br>
-									<i class="fa fa-envelope"></i> E-mail. <a href="mailto:#">first.last@example.com</a>
+									<i class="fa fa-map-marker"></i>Musikkpedagogisk Senter<br>
+									Kreativ Musikkpedagogikk<br>
+									Bibliotekgata 30, 1473 Lørenskog<br/>
+									<i class="fa fa-phone"></i> Telefon: 67 90 85 66<br>
+									<i class="fa fa-mobile"></i> Mobil: 954 75 972<br>
+									<i class="fa fa-envelope"></i> Epost: <a href="mailto:musikkglede@hotmail.com">musikkglede@hotmail.com</a>
 								</address>
 							</div>
 							<div class="col-xs-6 col-sm-6 col-md-3">
-								<h2>Don’t miss out</h2>
-								<p>In venenatis neque a eros laoreet eu placerat erat suscipit. Fusce cursus, erat ut scelerisque.</p>
+								<h2>Meld deg på vårt nyhetsbrev</h2>
+								<p>Få de siste nyhetene sendt direkte til din epost</p>
 								<form class="form-inline form-newsletter" role="form">
 									<div class="form-group">
-										<label class="sr-only" for="exampleInputEmail2">Email address</label>
-										<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter your email here">
+										<label class="sr-only" for="exampleInputEmail2">Epost</label>
+										<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Skriv inn din epost her ">
 									</div>
 									<button type="submit" class="btn"><i class="fa fa-caret-right"></i></button>
 								</form>

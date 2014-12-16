@@ -1,5 +1,5 @@
 <div class="ui-widget-header ui-corner-all center-header">
-	Product category - Picture (480x300px)
+	Product category - Picture (800x600px) will be rescaled to (480x360px)
 </div>
 
 <?if ($event->getArg('message') != "") {?>

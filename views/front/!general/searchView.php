@@ -13,6 +13,7 @@ $oT = new Translator('template3',$sLang);
 			<div class="modal-content">
 				<p class="clearfix"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button></p>
 				<form class="form-inline form-search" role="form">
+					<input type="hidden" name="form_SN" id="form_SN" value="<?=$SN;?>"/>
 					<div class="form-group">
 						<label class="sr-only" for="textsearch">Enter text search</label>
 						<input type="text" class="form-control input-lg" id="textsearch" placeholder="Enter text search">

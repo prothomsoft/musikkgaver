@@ -16,7 +16,7 @@ $SN = $objAppSession->getSession('SN');
 						<?}?>						
 					<?}?>
 					<div class="col-xs-6 col-sm-6 col-lg-3 col-md-3">
-		    			<a class="collect-item-thumb" href="http://musikkgaver.no" target="_blank"><img class="img-responsive" alt="musikkgaver" src="<?=$SN;?>images/collect-1.jpg"></a>
+		    			<a class="collect-item-thumb" href="http://musikkgaver.no" target="_blank"><img class="img-responsive" alt="musikkgaver" src="<?=$SN;?>images/collect-2-800.jpg"></a>
 					</div>
 				</div>
 			</div>

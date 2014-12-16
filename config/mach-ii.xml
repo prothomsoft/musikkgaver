@@ -133,6 +133,8 @@
         	<notify listener="SigmaListener" method="getList" />
         	<notify listener="BetaListener" method="findAll" />
         	<notify listener="ProductListener" method="findAllHomePage" />
+        	<notify listener="ShoppingCartListener" method="findProductsList"/>
+        	<notify listener="ProductListener" method="findByListId"/>
         	<notify listener="DeltaListener" method="findAll" />
         	<view-page name="carouselView" contentKey="carouselView" />
         	<view-page name="productCategoriesView" contentKey="productCategoriesView" />
@@ -156,6 +158,8 @@
         	<notify listener="CmsContentListener" method="findByItemSeo" />
         	<notify listener="CmsContentPictureListener" method="getByCmsContentObjAndId" />
         	<notify listener="ProductListener" method="findAllHomePage" />
+        	<notify listener="ShoppingCartListener" method="findProductsList"/>
+        	<notify listener="ProductListener" method="findByListId"/>
         	<notify listener="DeltaListener" method="findAll" />
         	<view-page name="carouselView" contentKey="carouselView" />
         	<view-page name="navigationView" contentKey="navigationView" />
@@ -236,6 +240,12 @@
         <event-handler event="products">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
         	<notify listener="DeltaListener" method="findAll" />
+        	<notify listener="BetaListener" method="findAll" />
+        	<notify listener="ProductListener" method="getProductQueue" />
+        	<notify listener="ProductListener" method="getProductListNavigation" />
+        	<notify listener="ProductListener" method="getProductList" />
+        	<notify listener="ShoppingCartListener" method="findProductsList"/>
+        	<notify listener="ProductListener" method="findByListId"/>
         	<view-page name="navigationView" contentKey="navigationView" />
         	<view-page name="nproductsView" contentKey="nproductsView" />
         	<view-page name="footerView" contentKey="footerView" />
@@ -246,19 +256,12 @@
         <event-handler event="product">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
         	<notify listener="DeltaListener" method="findAll" />
+        	<notify listener="BetaListener" method="findAll" />
+        	<notify listener="ProductListener" method="findById" />
+        	<notify listener="ShoppingCartListener" method="findProductsList"/>
+        	<notify listener="ProductListener" method="findByListId"/>
         	<view-page name="navigationView" contentKey="navigationView" />
         	<view-page name="nproductView" contentKey="nproductView" />
-        	<view-page name="footerView" contentKey="footerView" />
-        	<view-page name="searchView" contentKey="searchView" />
-        	<view-page name="template4" />
-        </event-handler>
-        
-        
-        <event-handler event="shopping_cart">
-        	<notify listener="RightsListener" method="getAllowedEventsList" />
-        	<notify listener="DeltaListener" method="findAll" />
-        	<view-page name="navigationView" contentKey="navigationView" />
-        	<view-page name="nShoppingCartView" contentKey="nShoppingCartView" />
         	<view-page name="footerView" contentKey="footerView" />
         	<view-page name="searchView" contentKey="searchView" />
         	<view-page name="template4" />
@@ -368,22 +371,16 @@
         </event-handler>
         <!-- SEARCH --> <!-- SEARCH --> <!-- SEARCH -->
         
-        
-        <!-- SHOPPINGCARTSTATE --> <!-- SHOPPINGCARTSTATE --> <!-- SHOPPINGCARTSTATE -->
-        <event-handler event="saveShoppingCartState">
-        	<notify listener="RightsListener" method="getAllowedEventsList" />
-        	<notify listener="ShoppingCartListener" method="saveShoppingCartState" />
-        	<view-page name="responseJSON" />
-        </event-handler>
-        <!-- SHOPPINGCARTSTATE --> <!-- SHOPPINGCARTSTATE --> <!-- SHOPPINGCARTSTATE -->
-        
         <!-- LOGIN/LOGOUT --> <!-- LOGIN/LOGOUT --> <!-- LOGIN/LOGOUT -->
         <event-handler event="login" access="public">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
         	<notify listener="DeltaListener" method="findAll" />
+        	<notify listener="BetaListener" method="findAll" />
         	<view-page name="loginFormView" contentKey="loginFormView" />
         	<view-page name="carouselView" contentKey="carouselView" />
         	<view-page name="navigationView" contentKey="navigationView" />
+        	<notify listener="ShoppingCartListener" method="findProductsList"/>
+        	<notify listener="ProductListener" method="findByListId"/>
         	<view-page name="footerView" contentKey="footerView" />
         	<view-page name="searchView" contentKey="searchView" />
         	<view-page name="template4" />
@@ -431,61 +428,54 @@
         	<notify listener="UserListener" method="executeForgotPassword" />        	
         </event-handler>        
         <!-- FORGOTPASSWORD --> <!-- FORGOTPASSWORD --> <!-- FORGOTPASSWORD -->
-                
+        
         <!-- SHOPPINGCART --> <!-- SHOPPINGCART --> <!-- SHOPPINGCART -->
-        <event-handler event="koszyk">
+        <event-handler event="shoppingCart">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
-        	<view-page name="dialogRegistration" contentKey="dialogRegistration" />
-        	<view-page name="dialogRegistrationConfirm" contentKey="dialogRegistrationConfirm" />
-        	<view-page name="dialogForgotPassword" contentKey="dialogForgotPassword" />
-        	<view-page name="dialogForgotPasswordConfirm" contentKey="dialogForgotPasswordConfirm" />
-        	<view-page name="dialogContact" contentKey="dialogContact" />
-        	<view-page name="dialogContactConfirm" contentKey="dialogContactConfirm" />
-        	<view-page name="dialogSamples" contentKey="dialogSamples" />
-        	<view-page name="dialogSamplesConfirm" contentKey="dialogSamplesConfirm" />
-        	<view-page name="dialogLogin" contentKey="dialogLogin" />
-        	<notify listener="ProductCategoryPlainListener" method="findAllAsc" />
-        	<notify listener="CmsCategoryPlainListener" method="findAllAsc" />
-        	<notify listener="UserListener" method="executeActivation" />
+        	<notify listener="BetaListener" method="findAll" />
         	<notify listener="ShoppingCartListener" method="findProductsList"/>
-           	<notify listener="ProductListener" method="findByListId"/>
-           	<notify listener="DeltaListener" method="findAll" />
-           	<notify listener="AlfaListener" method="findLatest" />
-			<view-page name="navigationTopView" contentKey="navigationTopView" />
-           	<view-page name="shoppingCartView" contentKey="shoppingCartView" />
-        	<view-page name="categoriesView" contentKey="categoriesView" />
+        	<notify listener="ProductListener" method="findByListId"/>
+        	<notify listener="ShoppingCartListener" method="findProductsList"/>
+        	<notify listener="ProductListener" method="findByListId"/>
+        	<view-page name="navigationView" contentKey="navigationView" />
+        	<view-page name="nShoppingCartView" contentKey="nShoppingCartView" />
+        	<view-page name="footerView" contentKey="footerView" />
         	<view-page name="searchView" contentKey="searchView" />
-        	<view-page name="bestView" contentKey="bestView" />
-        	<view-page name="documentReadyScript" contentKey="documentReadyScript" />
-           	<view-page name="template2" />
+        	<view-page name="template4" />
         </event-handler>
         
         <!-- executeAddShoppingCartAction -->
         <event-handler event="executeAddShoppingCartAction">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
-        	<notify listener="ShoppingCartListener" method="addToCart"/>
-        	<announce event="koszyk" copyEventArgs="true" />
+        	<notify listener="ShoppingCartListener" method="addToCart"/>        	        	
         </event-handler>
         
         <!-- executeClearShoppingCartAction -->
         <event-handler event="executeClearShoppingCartAction">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
         	<notify listener="ShoppingCartListener" method="clearCart"/>
-        	<announce event="koszyk" copyEventArgs="true" />
+        	<announce event="shoppingCart" copyEventArgs="true" />
         </event-handler>
         
         <!-- executeUpdateShoppingCartAction -->
         <event-handler event="executeUpdateShoppingCartAction">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
         	<notify listener="ShoppingCartListener" method="updateCart"/>
-        	<announce event="koszyk" copyEventArgs="true" />
+        	<announce event="shoppingCart" copyEventArgs="true" />
         </event-handler>
         
         <!-- executeRemoveShoppingCartAction -->
         <event-handler event="executeRemoveShoppingCartAction">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
         	<notify listener="ShoppingCartListener" method="removeFromCart"/>
-        	<announce event="koszyk" copyEventArgs="true" />
+        	<announce event="shoppingCart" copyEventArgs="true" />
+        </event-handler>
+        
+        <!-- saveShoppingCartState -->
+        <event-handler event="saveShoppingCartState">
+        	<notify listener="RightsListener" method="getAllowedEventsList" />
+        	<notify listener="ShoppingCartListener" method="saveShoppingCartState" />
+        	<view-page name="responseJSON" />
         </event-handler>
         <!-- SHOPPINGCART --> <!-- SHOPPINGCART --> <!-- SHOPPINGCART -->
         
@@ -956,6 +946,8 @@
         <event-handler event="contact_form" access="public">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
         	<notify listener="DeltaListener" method="findAll" />
+        	<notify listener="ShoppingCartListener" method="findProductsList"/>
+        	<notify listener="ProductListener" method="findByListId"/>
         	<view-page name="dialogLogin" contentKey="dialogLogin" />
         	<view-page name="bestView" contentKey="bestView" />
         	<view-page name="navigationTopView" contentKey="navigationTopView" />
@@ -977,6 +969,8 @@
         <event-handler event="contact_form_confirmation" access="public">
         	<notify listener="RightsListener" method="getAllowedEventsList" />
         	<notify listener="DeltaListener" method="findAll" />
+        	<notify listener="ShoppingCartListener" method="findProductsList"/>
+        	<notify listener="ProductListener" method="findByListId"/>
         	<view-page name="dialogLogin" contentKey="dialogLogin" />
         	<view-page name="bestView" contentKey="bestView" />
         	<view-page name="navigationTopView" contentKey="navigationTopView" />
@@ -1073,10 +1067,6 @@
     	<page-view name="documentReadyScript" page="/views/front/!general/documentReadyScript.php"/>
     	<page-view name="footerView" page="/views/front/!general/footerView.php"/>
     	<page-view name="searchView" page="/views/front/!general/searchView.php"/>
-    	
-    	
-    	
-    	
     	
     	<!-- !MANAGEMENT -->
     	<page-view name="template4" page="/views/front/!management/template4.php"/>

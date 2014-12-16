@@ -9,45 +9,38 @@ class model_ShoppingCartListener extends MachII_framework_Listener
     function addToCart(&$event) {
 		$objAppSession = new AppSession();
 		$arrShoppingCartItems = $objAppSession->getSession("ShoppingCartItems");
-		$objShoppingCart = new shoppingCart($arrShoppingCartItems);
-
-		// in case there is no subcategory
-		if($event->getArg('id3') != "") {
-			$productId = $event->getArg('id3');	
-		} else {
-			$productId = $event->getArg('id2');
-		}
-		// in case there is no main category
-		if($event->getArg('id2') == "") {
-			$productId = $event->getArg('id1');
-		}
-		$objShoppingCart->addItems("".$productId."", "1"); 	
 		
-		$arrShoppingCartItems = $objShoppingCart->getCartContent(); 	
+		
+		if (count($arrShoppingCartItems) == 0) {
+			$this->clearCart();
+		}
+				
+		$objShoppingCart = new shoppingCart($arrShoppingCartItems);
+		$productId = $event->getArg('id1');
+		$objShoppingCart->addItems("".$productId."", "1");
+		 	
+		$arrShoppingCartItems = $objShoppingCart->getCartContent();
 		$objAppSession->setSession("ShoppingCartItems",$arrShoppingCartItems);
 		$objAppSession->setSession("BackProductId",$productId);
+		
+		$SN = $objAppSession->getSession("SN");
+		
+		header("Location: ".$SN."shoppingCart.html");
 	}
 	
 	function removeFromCart(&$event) {
 		$objAppSession = new AppSession();
 		$arrShoppingCartItems = $objAppSession->getSession("ShoppingCartItems");
 		$objShoppingCart = new shoppingCart($arrShoppingCartItems);
-
-
-		// in case there is no subcategory
-		if($event->getArg('id3') != "") {
-			$productId = $event->getArg('id3');	
-		} else {
-			$productId = $event->getArg('id2');
-		}
-		// in case there is no main category
-		if($event->getArg('id2') == "") {
-			$productId = $event->getArg('id1');
-		}
+		$productId = $event->getArg('id1');
 		
 		if($productId != "") {
 			$objShoppingCart->removeItem("".$productId."");
 			$arrShoppingCartItems = $objShoppingCart->getCartContent(); 	
+			if (count($arrShoppingCartItems) == 0) {
+				$objAppSession = new AppSession();
+				$arrShoppingCartItems = array(); 
+			}
 			$objAppSession->setSession("ShoppingCartItems",$arrShoppingCartItems);
 		}
 	} 

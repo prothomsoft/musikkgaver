@@ -348,7 +348,24 @@ class model_ProductListener extends MachII_framework_Listener
 			$sOrder = substr_replace($sOrder, "", -2);
 		}
 		
-		$sWhere = "WHERE 1=1 ";
+		// filtering by category
+		$productCategorySeoName = $event->getArg("productCategorySeoName");
+		$sWhere = "";
+		
+		
+		
+		//if($SN == "127.0.0.1/music/") {
+			$all = stripslashes("\'all\'");
+		//} else {
+			//$all = "\'all\'";
+		//}
+		
+		if ($productCategorySeoName != $all)	{
+		// before upload if ($productCategorySeoName != "\'all\'")	{
+			$sWhere = "WHERE ";
+			$sWhere .= "ProductCategoryLevelTwoSeoName IN (".stripslashes($productCategorySeoName).") ";
+			$sWhere .= " OR ProductCategoryLevelOneSeoName IN (".stripslashes($productCategorySeoName).") ";
+		}
 		
 		// get data to display
 		$sQuery = "
@@ -386,15 +403,18 @@ class model_ProductListener extends MachII_framework_Listener
 		while ($aRow = mysql_fetch_array($rResult))	{
 			$responseJSON .= "[";
 			for ($i=0; $i<count($aColumns); $i++) {
+				
 				if ( $aColumns[$i] == "ImgDriveName" ) {
+					
 					$responseJSON .= '"<img src=\"'.$SN.'/upload/micro/'.$aRow[$aColumns[$i]].'\">",';
 				} else if ($aColumns[$i] == "Price"){
 					$responseJSON .= '"'.$aRow[ $aColumns[$i] ].' PLN",';
 				} else if ($aColumns[$i] == "BetaId"){
-					$betaId = $aRow[$aColumns[$i]];
+					$betaId = $aRow[ $aColumns[$i] ];
 					$objBetaDao = new BetaDao();
-					$objBeta = $objBetaDao->read($betaId);					
-					$responseJSON .= '"'.$objBeta->getName().'",';
+					$objBetaBean = $objBetaDao->read($betaId);
+					$responseJSON .= '"'.$objBetaBean->getName().'",';
+					
 				} else {
 					/* General output */
 					$responseJSON .= '"'.str_replace('"', '\"', $aRow[ $aColumns[$i] ]).'",';
@@ -433,19 +453,48 @@ class model_ProductListener extends MachII_framework_Listener
       	}
 		
 		// WIZARD STEP 1 ---------->
-		if($event->isArgDefined('BetaId') && $event->getArg('BetaId') != "") {
-			$BetaId = htmlspecialchars(trim($event->getArg('BetaId')), ENT_QUOTES,'UTF-8',true);
-			$objProductBean->setBetaId($BetaId);
+		// ProductCategoryId ---------->
+		if($event->isArgDefined('ProductCategoryId') && $event->getArg('ProductCategoryId') != "") {
+			$productCategoryId = $event->getArg('ProductCategoryId');
+			$objProductBean->setProductCategoryId($productCategoryId);
+			$objProductCategoryDao = new ProductCategoryDao();
+			$objProductCategory = $objProductCategoryDao->read($productCategoryId);
+			$productCategoryFatherId = $objProductCategory->getFatherId();
+			if($productCategoryFatherId == 0) { // means that it is father category
+				$productCategoryLevelOneName = $objProductCategory->getName();
+				$objProductBean->setProductCategoryLevelOneName($productCategoryLevelOneName);
+				$objClearUrl = new ClearUrl($productCategoryLevelOneName);
+				$objProductBean->setProductCategoryLevelOneSeoName($objClearUrl->clear());
+			} else {
+				// get father categoryName
+				$objProductFatherCategory = $objProductCategoryDao->read($productCategoryFatherId);
+				$productCategoryLevelOneName = $objProductFatherCategory->getName();
+				$objProductBean->setProductCategoryLevelOneName($productCategoryLevelOneName);
+				$objClearUrl = new ClearUrl($productCategoryLevelOneName);
+				$objProductBean->setProductCategoryLevelOneSeoName($objClearUrl->clear());
+				// get child categoryName
+				$objProductCategory = $objProductCategoryDao->read($productCategoryId);
+				$productCategoryLevelTwoName = $objProductCategory->getName();
+				$objProductBean->setProductCategoryLevelTwoName($productCategoryLevelTwoName);
+				$objClearUrl = new ClearUrl($productCategoryLevelTwoName);
+				$objProductBean->setProductCategoryLevelTwoSeoName($objClearUrl->clear());
+			}
 			$objProductDao->update($objProductBean);						
 		}
-		if($event->isArgDefined('BetaId') && $event->getArg('BetaId') == "") {
-			$BetaId = "";
-			$objProductBean->setBetaId($BetaId);
+		if($event->isArgDefined('ProductCategoryId') && $event->getArg('ProductCategoryId') == "") {
+			$productCategoryId = "";
+			$objProductBean->setProductCategoryId($productCategoryId);
+			$productCategoryLevelOneName = "";
+			$objProductBean->setProductCategoryLevelOneName($productCategoryLevelOneName);
+			$objProductBean->setProductCategoryLevelOneSeoName($productCategoryLevelOneName);
+			$productCategoryLevelTwoName = "";
+			$objProductBean->setProductCategoryLevelTwoName($productCategoryLevelTwoName);
+			$objProductBean->setProductCategoryLevelTwoSeoName($productCategoryLevelTwoName);			
 			$objProductDao->update($objProductBean);
 		}
-		if($objProductBean->getBetaId() != "") {
-			$BetaId = $objProductBean->getBetaId();
-			$event->setArg('BetaId', $BetaId);
+		if($objProductBean->getProductCategoryId() != "") {
+			$productCategoryId = $objProductBean->getProductCategoryId(); 
+			$event->setArg('ProductCategoryId', $productCategoryId);
 		}
 		
 		
@@ -469,20 +518,36 @@ class model_ProductListener extends MachII_framework_Listener
 			$event->setArg('Name', $name);
 		}
 		
+		// ExtName ---------->
+		if($event->isArgDefined('ExtName') && $event->getArg('ExtName') != "") {
+			$extName = htmlspecialchars(trim($event->getArg('ExtName')), ENT_QUOTES,'UTF-8',true);
+			$objProductBean->setExtName($extName);
+			$objProductDao->update($objProductBean);						
+		}
+		if($event->isArgDefined('ExtName') && $event->getArg('ExtName') == "") {
+			$extName = "";
+			$objProductBean->setExtName($extName);
+			$objProductDao->update($objProductBean);
+		}
+		if($objProductBean->getExtName() != "") {
+			$extName = $objProductBean->getExtName();
+			$event->setArg('ExtName', $extName);
+		}
+		
 		// BetaId ---------->
 		if($event->isArgDefined('BetaId') && $event->getArg('BetaId') != "") {
-			$BetaId = htmlspecialchars(trim($event->getArg('BetaId')), ENT_QUOTES,'UTF-8',true);
-			$objProductBean->setBetaId($BetaId);
+			$betaId = htmlspecialchars(trim($event->getArg('BetaId')), ENT_QUOTES,'UTF-8',true);
+			$objProductBean->setBetaId($betaId);
 			$objProductDao->update($objProductBean);						
 		}
 		if($event->isArgDefined('BetaId') && $event->getArg('BetaId') == "") {
-			$BetaId = "";
-			$objProductBean->setBetaId($BetaId);
+			$betaId = "";
+			$objProductBean->setBetaId($betaId);
 			$objProductDao->update($objProductBean);
 		}
 		if($objProductBean->getBetaId() != "") {
-			$BetaId = $objProductBean->getBetaId();
-			$event->setArg('BetaId', $BetaId);
+			$betaId = $objProductBean->getBetaId();
+			$event->setArg('BetaId', $betaId);
 		}
 		
 		// Code ---------->
@@ -1007,15 +1072,7 @@ class model_ProductListener extends MachII_framework_Listener
     }
     
     function findById(&$event) {
-    	
-    	$id3 = $event->getArg("id3");
-    	
-    	$productId = "";
-    	if($id3 == "") {
-    		$productId = $event->getArg("id2");
-    	} else {
-    		$productId = $event->getArg("id3");
-    	}
+    	$productId = $event->getArg("id2");
     	
     	if($productId != "") {
     		$objProductDao = new ProductDao();
@@ -1062,52 +1119,8 @@ class model_ProductListener extends MachII_framework_Listener
 		$objAppSession = new AppSession();
     	$objProductGateway = new ProductGateway();
     	
-    	$arrProductCategoryPlain = $event->getArg("arrProductCategoryPlain");
-		foreach($arrProductCategoryPlain as $objProductCategoryPlain) {
-			if($objProductCategoryPlain->getProductCategorySeoName() == $event->getArg("id1")) {
-				$fatherCategoryName = $objProductCategoryPlain->getProductCategoryName();
-				$productCategoryId = $objProductCategoryPlain->getProductCategoryId();
-			}
-			if($objProductCategoryPlain->getProductCategorySeoName() == $event->getArg("id2")) {
-				$productCategoryName = str_replace("&nbsp; &nbsp;","",$objProductCategoryPlain->getProductCategoryName());
-				$childrenCategoryName = $productCategoryName; 	
-				$productCategoryId = $objProductCategoryPlain->getProductCategoryId();
-			}	
-		}
-		
-		if($event->getArg("id1") != "" and $event->getArg("id2") != "") {
-			$productCategorySeoName = "'".$event->getArg("id2")."'";
-		} elseif ($event->getArg("id1") != "" and $event->getArg("id2") == "") {
-			
-			// get all subcategories for this father category
-			$productCategorySeoName = $event->getArg("id1");
-			$objProductCategoryDao = new ProductCategoryDao();
-			$objProductCategory = $objProductCategoryDao->readBySeoName($productCategorySeoName);
-			
-			// father categoryId
-			$productCategoryId = $objProductCategory->getProductCategoryId();
-			$objProductCategoryGateway = new ProductCategoryGateway();
-			$arrProductCategory = $objProductCategoryGateway->findByFatherId($productCategoryId);
-			
-			if($arrProductCategory) {
-				$inClause = "";
-				foreach($arrProductCategory as $objProductCategory) {
-					$inClause .= "'".$objProductCategory->getSeoName()."',";
-				}
-			}
-			$inClause = substr_replace($inClause, "", -1);
-			
-			if($inClause != "") {
-				$productCategorySeoName = $inClause;
-			} else {
-				$productCategorySeoName = "'".$event->getArg("id1")."'";
-			}
-			
-		} else {
-			$productCategorySeoName = "'all'";
-		}
-    	 
-		$arrProduct = $objProductGateway->findProductAll($productCategorySeoName);
+		$productCategoryId = $event->getArg("id1");
+		$arrProduct = $objProductGateway->findProductAll($productCategoryId);
 		$i=1;
 		if ($arrProduct) {
 			foreach ($arrProduct as $objProduct) {
@@ -1139,53 +1152,10 @@ class model_ProductListener extends MachII_framework_Listener
 		$objProductGateway = new ProductGateway();
     	$arrPagination = $event->getArg('arrPagination');
     	
-    	$arrProductCategoryPlain = $event->getArg("arrProductCategoryPlain");
-		foreach($arrProductCategoryPlain as $objProductCategoryPlain) {
-			if($objProductCategoryPlain->getProductCategorySeoName() == $event->getArg("id1")) {
-				$fatherCategoryName = $objProductCategoryPlain->getProductCategoryName();
-				$productCategoryId = $objProductCategoryPlain->getProductCategoryId();
-			}
-			if($objProductCategoryPlain->getProductCategorySeoName() == $event->getArg("id2")) {
-				$productCategoryName = str_replace("&nbsp; &nbsp;","",$objProductCategoryPlain->getProductCategoryName());
-				$childrenCategoryName = $productCategoryName; 	
-				$productCategoryId = $objProductCategoryPlain->getProductCategoryId();
-			}	
-		}
-		
-		if($event->getArg("id1") != "" and $event->getArg("id2") != "") {
-			$productCategorySeoName = "'".$event->getArg("id2")."'";
-		} elseif ($event->getArg("id1") != "" and $event->getArg("id2") == "") {
-			
-			// get all subcategories for this father category
-			$productCategorySeoName = $event->getArg("id1");
-			$objProductCategoryDao = new ProductCategoryDao();
-			$objProductCategory = $objProductCategoryDao->readBySeoName($productCategorySeoName);
-			
-			// father categoryId
-			$productCategoryId = $objProductCategory->getProductCategoryId();
-			$objProductCategoryGateway = new ProductCategoryGateway();
-			$arrProductCategory = $objProductCategoryGateway->findByFatherId($productCategoryId);
-			
-			if($arrProductCategory) {
-				$inClause = "";
-				foreach($arrProductCategory as $objProductCategory) {
-					$inClause .= "'".$objProductCategory->getSeoName()."',";
-				}
-			}
-			$inClause = substr_replace($inClause, "", -1);
-			
-			if($inClause != "") {
-				$productCategorySeoName = $inClause;
-			} else {
-				$productCategorySeoName = "'".$event->getArg("id1")."'";
-			}
-			
-		} else {
-			$productCategorySeoName = "'all'";
-		}
+		$productCategoryId = $event->getArg("id1");
     	
     	
-    	$arrProducts = $objProductGateway->findProductAllLimited($productCategorySeoName, $arrPagination['nCurrentPage'],$arrPagination['nItemsPerPage']);	
+    	$arrProducts = $objProductGateway->findProductAllLimited($productCategoryId, $arrPagination['nCurrentPage'],$arrPagination['nItemsPerPage']);	
 	 	$event->setArg('arrProducts',$arrProducts);	
 	}
     

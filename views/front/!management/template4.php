@@ -55,6 +55,7 @@ $oT = new Translator('template3',$sLang);
 		<link href="<?=$SN;?>css/theme-blog.css" rel="stylesheet">
 		<link href="<?=$SN;?>css/theme-shop.css" rel="stylesheet">
 		<link href="<?=$SN;?>css/theme.css" rel="stylesheet">
+		<link href="<?=$SN;?>styles/prettyPhoto.css" rel="stylesheet">
 		
 		<!-- Colors-->
 		<link href="<?=$SN;?>css/colors/orange/style.css" rel="stylesheet" id="layoutstyle">
@@ -156,6 +157,10 @@ $oT = new Translator('template3',$sLang);
 		<!-- Theme Initializer -->
 		<script src="<?=$SN;?>js/theme.plugins.js"></script>
 		<script src="<?=$SN;?>js/theme.js"></script>
+		
+		<!-- Others -->
+		<script src="<?=$SN;?>js/jquery.musikkgaver.js"></script>
+		<script type="text/javascript" src="<?=$SN;?>js/jquery.prettyPhoto.js"></script>
 		
 	</body>
 

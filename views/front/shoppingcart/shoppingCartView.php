@@ -39,6 +39,7 @@
 					<?$totalBasketItems = 0;?>
 					<?$totalPoints = 0;?>
 					<?$cartWeightTotal = 0;?>
+					
 					<?foreach($event->getArg('arrProduct') as $objProduct) { 
 						$quantity = $arrShoppingCartItems[$objProduct->getProductId()];
 						$totalBasketItems = $totalBasketItems + $quantity; 
@@ -54,9 +55,6 @@
 								$urlExtensionBack = "/".$objProduct->getProductCategoryLevelOneSeoName();
 							}	
 						}?>
-						
-						
-						
 							<input type="hidden" name="arrProductId[]" value="<?=$objProduct->getProductId()?>">
 							<td>
 								<a href="<?=$SN?>produkt/<?=$objProduct->getSeoName()?>/<?=$objProduct->getProductId()?>.html"><img src="<?=$SN?>upload/micro/<?=$objProduct->getImgDriveName();?>"></a>

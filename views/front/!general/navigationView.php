@@ -28,54 +28,53 @@ $oT = new Translator('template3',$sLang);
 						<li class="menu-shop">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i></a>
 							<div class="dropdown-menu" style="padding:30px 10px 10px 10px;">
-								<ul class="list-unstyled list-thumbs-pro">
-									<li class="product">
-										<div class="product-thumb-info">
-											<a href="#" class="product-remove"><i class="fa fa-trash-o"></i></a>
-											<div class="product-thumb-info-image">
-												<a href="shop-product-detail1.html"><img alt="" width="60" src="<?=$SN?>images/instuments/piano.jpg"></a>
-											</div>
+								<?$arrProduct = $event->getArg('arrProduct');?>
+								<?if($arrProduct) {?>
+									<ul class="list-unstyled list-thumbs-pro">
+										  <?$objAppSession = new AppSession();
+										  $arrShoppingCartItems = $objAppSession->getSession("ShoppingCartItems");?>
+										  <?$cartTotal = 0;?>
+										  <?$totalBasketItems = 0;?>
+											<?$totalPoints = 0;?>
+											<?$cartWeightTotal = 0;?>
+											<?
+											foreach($arrProduct as $objProduct) { 
+											$quantity = $arrShoppingCartItems[$objProduct->getProductId()];
+											$totalBasketItems = $totalBasketItems + $quantity; 
+											$total = $objProduct->getPrice() * $quantity;
+											$totalPoints = $totalPoints + $objProduct->getPoints() * $quantity;
+											$cartTotal += $arrShoppingCartItems[$objProduct->getProductId()] * $objProduct->getPrice();
+											$cartWeightTotal += $arrShoppingCartItems[$objProduct->getProductId()] * $objProduct->getWeight();?>
+											<li class="product">
+												<div class="product-thumb-info">
+													<div class="product-thumb-info-image">
+														<a href="<?=$SN?>produkt/<?=$objProduct->getSeoName()?>/<?=$objProduct->getProductId()?>.html"><img src="<?=$SN?>upload/micro/<?=$objProduct->getImgDriveName();?>" width="60px"></a>
+													</div>
+													<div class="product-thumb-info-content">
+														<div style="float:left;">
+															<h4><a href="<?=$SN?>produkt/<?=$objProduct->getSeoName()?>/<?=$objProduct->getProductId()?>.html"><?=$objProduct->getName()?></a></h4>
+															<span class="price"><?=$objProduct->getPrice();?> NOK</span>
+															
+														</div>
+														<div style="float:right;">
+															<?=$oT->gL("txtQuantity")?>: <?=$quantity?>
+														</div>
+														<div style="clear:both"></div>													
+													</div>
+												</div>
+											</li>
+											<?}?>
 											
-											<div class="product-thumb-info-content">
-												<h4><a href="shop-product-detail2.html">Denim shirt</a></h4>
-												<span class="price">29.99 NOK</span>
-											</div>
-										</div>
-									</li>
-									<li class="product">
-										<div class="product-thumb-info">
-											<a href="#" class="product-remove"><i class="fa fa-trash-o"></i></a>
-											<div class="product-thumb-info-image">
-												<a href="shop-product-detail1.html"><img alt="" width="60" src="<?=$SN?>images/instuments/piano.jpg"></a>
-											</div>
-											
-											<div class="product-thumb-info-content">
-												<h4><a href="shop-product-detail2.html">Poplin shirt with fine pleated bands</a></h4>												
-												<span class="price">29.99 NOK</span>
-											</div>
-										</div>
-									</li>
-									<li class="product">
-										<div class="product-thumb-info">
-											<a href="#" class="product-remove"><i class="fa fa-trash-o"></i></a>
-											<div class="product-thumb-info-image">
-												<a href="shop-product-detail1.html"><img alt="" width="60" src="<?=$SN?>images/instuments/piano.jpg"></a>
-											</div>
-											
-											<div class="product-thumb-info-content">
-												<h4><a href="shop-product-detail2.html">Contrasting shirt</a></h4>
-												<span class="price">29.99 NOK</span>
-											</div>
-										</div>
-									</li>
-								</ul>
-								<ul class="list-inline cart-subtotals text-right">
-									<li class="cart-subtotal"><strong>Subtotal</strong></li>
-									<li class="price"><span class="amount"><strong>431.00 NOK</strong></span></li>
-								</ul>
+									</ul>
+									<ul class="list-inline cart-subtotals text-right">
+										<li class="cart-subtotal"><strong><?=$oT->gL("txtTotal")?></strong></li>
+										<li class="price"><span class="amount"><strong><?=number_format($cartTotal,2, '.', '');?> NOK</strong></span></li>
+									</ul>
+								<?} else {?>
+									<p style="text-align:center;"><?=$oT->gL("txtShoppingCartEmpty")?></p>
+								<?}?>
 								<div class="cart-buttons text-right">
-									<button class="btn btn-white">View Cart</button>
-									<button class="btn btn-primary">Checkout</button>
+									<a href="<?=$SN?>shoppingCart.html"><button class="btn btn-white">View Cart</button></a>									
 								</div>
 							</div>
 						</li>
