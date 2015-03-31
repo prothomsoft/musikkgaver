@@ -215,13 +215,21 @@
 					echo $event->getArg('c2BoxRemoveView');
 				}
 				
+				// NewsletterList
+				if ($event->getArg('NewsletterList') != "") {
+					echo $event->getArg('NewsletterList');
+				}
+				if ($event->getArg('NewsletterView') != "") {
+					echo $event->getArg('NewsletterView');
+				}
+				
 				// BookList
 				if ($event->getArg('BookList') != "") {
 					echo $event->getArg('BookList');
 				}
 				if ($event->getArg('BookView') != "") {
 					echo $event->getArg('BookView');
-				}?>
+				}?>								
 			</div> <!-- end .content-column-center-right -->
 			
 		</div> <!-- .ui-helper-clearfix content -->

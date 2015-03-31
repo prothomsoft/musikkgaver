@@ -23,7 +23,6 @@
 	    <input type="hidden" name="event" id="event" value="showProductStep3">
 	    <input type="hidden" name="productId" id="productId" value="<?=$event->getArg('productId')?>">
 	    <input type="hidden" name="Code" id="Code" value="1">
-	    <input type="hidden" name="Box" id="Box" value="1">
 	    <input type="hidden" name="Delivery" id="Delivery" value="1">
 	    <input type="hidden" name="ProductType" id="ProductType" value="1">
 	    <input type="hidden" name="ProducerName" id="ProducerName" value="1">
@@ -53,6 +52,11 @@
 			<label for="ProductType">Keyword</label>
 			<input type="text" name="ProductType" id="ProductType" value="<?echo htmlspecialchars_decode($event->getArg('ProductType'));?>" class="text ui-widget-content ui-corner-all <?if ($event->getArg("missingField") == "ProductType") echo "ui-state-error"?>" />
 		</fieldset>
+		
+		<fieldset>
+			<label for="Delivery">Delivery Time</label>
+			<input type="text" name="Delivery" id="Delivery" value="<?echo htmlspecialchars_decode($event->getArg('Delivery'));?>" class="text ui-widget-content ui-corner-all <?if ($event->getArg("missingField") == "Delivery") echo "ui-state-error"?>" />
+		</fieldset>
 			
 	</div>
 	
@@ -78,6 +82,11 @@
 		<fieldset>
 			<label for="ProductOrder">Order</label>
 			<input style="width:240px" type="text" name="ProductOrder" id="ProductOrder" value="<?= $maxProductOrder;?>" class="text ui-widget-content ui-corner-all <?if ($event->getArg("missingField") == "ProductOrder") echo "ui-state-error"?>" />
+		</fieldset>
+		
+		<fieldset>
+			<label for="InStock">Products in stock</label>
+			<input style="width:240px" type="text" name="InStock" id="InStock" value="<?= $event->getArg("InStock");?>" class="text ui-widget-content ui-corner-all <?if ($event->getArg("missingField") == "InStock") echo "ui-state-error"?>" />
 		</fieldset>
 	
 	</div>

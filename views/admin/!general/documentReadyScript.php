@@ -695,6 +695,43 @@ $(document).ready(function() {
 			} );
 		}
 	});
+
+	// ---------------------------->
+	// NewsletterTable --------->
+	// ---------------------------->
+	$('#idNewsletterTable').dataTable( {
+		"bAutoWidth": false,
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
+		"bProcessing": true,
+		"bServerSide": true,
+		"sAjaxSource": "index.php?event=getNewsletterTableData",
+		"aaSorting": [[ 1, "desc" ]],
+		"bProcessing": false,
+		"bLengthChange": true,
+		"iDisplayLength": 50, 
+		"sDom": '<"top"p>t<"bottom"pl<"clear">',
+		"oLanguage": {
+			"sUrl": "../lang/pl_PL.txt"
+		},					
+		"aoColumns": [				
+			/* NewsletterId */ { "sClass": "center", "bSearchable": false, "bVisible": false },
+			/* Email */ { "sClass": "center", "bVisible": true},
+			/* CreateDate */ { "sClass": "center" },
+			/* Action */ { "sClass": "center", "sType": "html", "bSortable": false , "bSearchable": false }			  			
+  		],
+  		"fnServerData": function ( sSource, aoData, fnCallback ) {
+			aoData.push( 	{ "name": "searchKeyword", "value": "<?=$event->getArg('searchKeyword')?>" },
+							{ "name": "searchInitials", "value": "<?=$event->getArg('searchInitials')?>" } );
+			$.ajax( {
+				"dataType": 'json', 
+				"type": "POST", 
+				"url": sSource, 
+				"data": aoData, 
+				"success": fnCallback
+			} );
+		}
+	});
 	
 	// ---------------------------->
 	// BookTable --------->

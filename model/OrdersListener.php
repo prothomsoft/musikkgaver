@@ -313,6 +313,12 @@ class model_OrdersListener extends MachII_framework_Listener
 			if($event->getArg("email") != "") {
 				$email = $event->getArg("email");	
 			}
+			if($event->getArg("organization") != "") {
+				$organization = $event->getArg("organization");
+			}
+			if($event->getArg("organizationEmail") != "") {
+				$organization = $event->getArg("organizationEmail");
+			}
 			
 			
 			$authorizePaymentStatus = 0;
@@ -339,25 +345,12 @@ class model_OrdersListener extends MachII_framework_Listener
 			$customerType = $objAppSession->getSession("customerType");
 			$deliveryType = $objAppSession->getSession("deliveryType");
 			
-			
-			
 			$sLang = $objAppSession->getSession('sLang');
 			$oT = new Translator('template3',$sLang);
 			
-			
-			
-			
-			if($customerType == "Private") { 
-				$objOrdersBean->setPaymentName("Privatkunde (betal med kort/paypal)");	
-			} else {
-				$objOrdersBean->setPaymentName("Bedrift/skolekunde (faktura)");
-			}
-			
-			if($deliveryType == "Post") {
-				$objOrdersBean->setShipName("Post (porto blir lagt til prisen)");
-			} else {
-				$objOrdersBean->setShipName("Hent varen selv etter avtale (ta kontakt)");
-			}
+			 
+			$objOrdersBean->setPaymentName("Privatkunde (betal med kort/paypal)");	
+			$objOrdersBean->setShipName("Post (porto blir lagt til prisen)");
 			
 			$objOrdersBean->setShipPrice($shipPrice);
 			
@@ -375,6 +368,8 @@ class model_OrdersListener extends MachII_framework_Listener
 	        $objOrdersBean->setCity($city);
 	        $objOrdersBean->setPhone1($phone1);
 	        $objOrdersBean->setCountry($country);
+	        $objOrdersBean->setOrganization($organization);
+	        $objOrdersBean->setOrganizationEmail($organizationEmail);
 	      	
 	      	$objOrdersBean->setAmount($amount);
 	      	$objOrdersBean->setIsSend(0);
@@ -502,25 +497,14 @@ class model_OrdersListener extends MachII_framework_Listener
 			$messageContentTable .= "<tr>";
 	  		$messageContentTable .= "<td width=\"550\" align=\"left\">";
 	  		$messageContentTable .= "<br/>Velg ønsket betalingsmetode:";
-	  		if($customerType == "Private") {
-	  			$messageContentTable .= "Privatkunde (betal med kort/paypal)";
-			}
-			if($customerType == "Company") {
-				$messageContentTable .= "Bedrift/skolekunde (faktura)";
-			}
-	  		
-	  		$messageContentTable .= "</td>";
+	  		$messageContentTable .= "Privatkunde (betal med kort/paypal)";
+			$messageContentTable .= "</td>";
 			$messageContentTable .= "</tr>";
 			$messageContentTable .= "<tr>";
 	  		$messageContentTable .= "<td width=\"550\" align=\"left\">";
 	  		$messageContentTable .= "Velg ønsket leveringsmetode:";
-	  		if($deliveryType == "Post") {
-	  			$messageContentTable .= "Post (porto blir lagt til prisen)";
-			}
-			if($deliveryType == "Appointment") {
-				$messageContentTable .= "Hent varen selv etter avtale (ta kontakt)";
-			}
-	  		$messageContentTable .= "</td>";
+	  		$messageContentTable .= "Post (porto blir lagt til prisen)";
+			$messageContentTable .= "</td>";
 			$messageContentTable .= "</tr>";
 			$messageContentTable .= "</table><br/>";
 			
@@ -543,7 +527,7 @@ class model_OrdersListener extends MachII_framework_Listener
 			$messageContentTable .= "</tr>";
 			$messageContentTable .= "</table><br/>";
 			
-			//Tomku tu wpisz dane odboircy
+			//Receiver data
 			$messageContentTable .= "<strong>".$oT->gL("txtDeliveryAddress").":</strong><br/>";
 			$messageContentTable .= $oT->gL("txtFirstName").":".$firstName."<br/>";
 			$messageContentTable .= $oT->gL("txtLastName").":".$lastName."<br/>";	
@@ -552,6 +536,8 @@ class model_OrdersListener extends MachII_framework_Listener
 			$messageContentTable .= $oT->gL("txtZip").":".$zip."<br/>";
 			$messageContentTable .= $oT->gL("txtCity").":".$city."<br/>";
 			$messageContentTable .= $oT->gL("txtPhoneNumber").":".$phone1."<br/><br/>";
+			$messageContentTable .= $oT->gL("txtOrganization").":".$organization."<br/>";
+			$messageContentTable .= $oT->gL("txtOrganizationEmail").":".$organizationEmail."<br/><br/>";
 			
 			// send email to customer
 	  		$fromEmail = "musikkgaver@mg.prothomsoft.com";
@@ -563,13 +549,10 @@ class model_OrdersListener extends MachII_framework_Listener
 			// tytuł 
 			$messageContent .= "<p style=\"font-size:18px\">".$oT->gL("txtOrderNumber")." ".$orderId." ".$oT->gL("txtHasBeenReceived")."<br/></p>";
 			
-			// only when we go with Paypal
-			if($customerType == "Private") {
-				$messageContent .= "<p>Takk for bestillingen!</p>";
-				$messageContent .= "<p>Du vil motta en betalingsbekreftelse fra PayPal når betalingen er gjennomført.<br/>"; 
-				$messageContent .= "Orderen vil bli effektuert kun etter betaling.<br/>";
-				$messageContent .= "Vi sender deg en bekreftelse om anslått leveringstid når betalingen er mottatt.</p>";
-			}
+			$messageContent .= "<p>Takk for bestillingen!</p>";
+			$messageContent .= "<p>Du vil motta en betalingsbekreftelse fra PayPal når betalingen er gjennomført.<br/>"; 
+			$messageContent .= "Orderen vil bli effektuert kun etter betaling.<br/>";
+			$messageContent .= "Vi sender deg en bekreftelse om anslått leveringstid når betalingen er mottatt.</p>";
 			 
 			$messageContent .= "<hr style=\"border: 1px solid rgb(115, 186, 20);\">";
 			$messageContent .= $messageContentTable;
@@ -583,22 +566,14 @@ class model_OrdersListener extends MachII_framework_Listener
 			// send email to administrator
 	  		$fromEmail2 = "musikkgaver@mg.prothomsoft.com";
 	  		
-	  		if($customerType == "Private") {
-	  			$subject2  = "Salg via mg.prothomsoft.com - betaling via PayPal. Order no.: ".$orderId." from: ".$firstName." ".$lastName." ";
-	  		} else {
-	  			$subject2  = "Salg via mg.prothomsoft.com - ønsker faktura. Order no.: ".$orderId." from: ".$firstName." ".$lastName." ";
-	  		}
+	  		$subject2  = "Salg via mg.prothomsoft.com - betaling via PayPal. Order no.: ".$orderId." from: ".$firstName." ".$lastName." ";
 	  		
 			$messageContent2 = "<body style=\"font-family:Arial, Helvetica, sans-serif;"; 
 			$messageContent2 .= "color:#5d5d5d;"; 
 			$messageContent2 .= "font-size:14px\">";
 			
-			if($customerType == "Private") {
-				$messageContent2 .= "<p style=\"font-size:18px\">Salg via mg.prothomsoft.com - betaling via PayPal. Order: ".$orderId." from: ".$firstName." ".$lastName."<br/></p>";
-			} else {
-				$messageContent2 .= "<p style=\"font-size:18px\">Salg via mg.prothomsoft.com - ønsker faktura. Order: ".$orderId." from: ".$firstName." ".$lastName."<br/></p>";
-			}
-		
+			$messageContent2 .= "<p style=\"font-size:18px\">Salg via mg.prothomsoft.com - betaling via PayPal. Order: ".$orderId." from: ".$firstName." ".$lastName."<br/></p>";
+			
 			$messageContent2 .= "<strong>Create date:</strong> ".substr(($createDateTime),0,10)."<br/>";		
 			$messageContent2 .= "<b>Email: </b> <a href=\"mailto:".$email."\">".$email."</a><br />";
 			$messageContent2 .= $messageContentTable;
@@ -607,7 +582,7 @@ class model_OrdersListener extends MachII_framework_Listener
     	
     	if($email != "") {
     		
-    		$mail = new Rmail();
+    		/*$mail = new Rmail();
 	    	$mail->setFrom($fromEmail); 
 	    	$mail->setSubject($subject);
 		    $mail->setHTML($messageContent);
@@ -632,7 +607,7 @@ class model_OrdersListener extends MachII_framework_Listener
 	    	$mail->setFrom($fromEmail2); 
 	    	$mail->setSubject($subject2);
 		    $mail->setHTML($messageContent2);
-	    	$result = $mail->send(array($toEmail2));
+	    	$result = $mail->send(array($toEmail2));*/
 	    	
 	    	$toEmail2 = "tprokop@prothomsoft.com";
 			$mail = new Rmail();
@@ -793,6 +768,14 @@ class model_OrdersListener extends MachII_framework_Listener
     	if (!$event->isArgDefined('Country')) {
     		$Country = $objOrder->getCountry();
     		$event->setArg('Country',$Country);
+    	}
+    	if (!$event->isArgDefined('Organization')) {
+    		$Organization = $objOrder->getOrganization();
+    		$event->setArg('Organization',$Organization);
+    	}
+    	if (!$event->isArgDefined('OrganizationEmail')) {
+    		$OrganizationEmail = $objOrder->getOrganizationEmail();
+    		$event->setArg('OrganizationEmail',$OrganizationEmail);
     	}
     }
     

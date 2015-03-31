@@ -139,6 +139,11 @@
             <invoker type="MachII.framework.invokers.ObjectEvent"/>
         </listener>
         
+        <!-- Newsletter Management -->
+        <listener name="NewsletterListener" type="model.NewsletterListener">
+            <invoker type="MachII.framework.invokers.ObjectEvent"/>
+        </listener>
+        
         
     </listeners>
     
@@ -1240,6 +1245,36 @@
            	<notify listener="BookListener" method="authorizeRecord" />
 			<announce event="showBookList" copyEventArgs="false" />
         </event-handler>
+        
+        <!-- shows Newsletter list -->
+        <event-handler event="showNewsletterList">
+        	<notify listener="RightsListener" method="getAllowedEventsList" />
+        	<view-page name="menu" contentKey="menu" />
+        	<view-page name="NewsletterList" contentKey="NewsletterList" />
+        	<view-page name="documentReadyScript" contentKey="documentReadyScript" />
+			<view-page name="template" />
+        </event-handler>
+        <event-handler event="getNewsletterTableData">
+        	<notify listener="NewsletterListener" method="getAdminTableData" />
+        	<view-page name="responseJSON" />
+        </event-handler>
+        
+        <!-- shows Newsletter view -->
+        <event-handler event="showNewsletterView">
+        	<notify listener="RightsListener" method="getAllowedEventsList" />
+        	<view-page name="menu" contentKey="menu" />
+        	<notify listener="NewsletterListener" method="getById" />
+        	<view-page name="NewsletterView" contentKey="NewsletterView" />
+        	<view-page name="documentReadyScript" contentKey="documentReadyScript" />
+			<view-page name="template" />
+        </event-handler>
+        
+        <!-- executeRemoveBetaAction -->
+        <event-handler event="executeRemoveNewsletterAction" access="public">
+        	<notify listener="RightsListener" method="getAllowedEventsList" />
+           	<notify listener="NewsletterListener" method="removeRecord" />
+			<announce event="showNewsletterList" copyEventArgs="false" />
+        </event-handler>
                                
     </event-handlers>
     
@@ -1340,7 +1375,11 @@
         
         <!-- Book -->
         <page-view name="BookList" page="/views/admin/Book/BookList.php" />
-        <page-view name="BookView" page="/views/admin/Book/BookView.php" />                   
+        <page-view name="BookView" page="/views/admin/Book/BookView.php" />
+        
+        <!-- Newsletter -->
+        <page-view name="NewsletterList" page="/views/admin/Newsletter/NewsletterList.php" />
+        <page-view name="NewsletterView" page="/views/admin/Newsletter/NewsletterView.php" />                   
          
     </page-views> 
     

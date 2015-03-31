@@ -15,6 +15,12 @@ class EventsAllowedForLevel {
       
        // CMS CATEGORIES
 	  showcmscategorieslist,
+
+	  // NEWSLETTER
+	  shownewsletterlist,
+	  getnewslettertabledata,
+	  shownewsletterview,
+	  executeremovenewsletteraction,
 	  
 	  // MEMBER
 	  showmemberlist,

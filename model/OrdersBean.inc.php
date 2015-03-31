@@ -30,6 +30,8 @@ class OrdersBean{
    private $City;
    private $Phone1;
    private $Country;
+   private $Organization;
+   private $OrganizationEmail;
    
    public function setOrderId($val){
       $this->OrderId=$val;
@@ -213,6 +215,22 @@ class OrdersBean{
 
    public function getCountry(){
       return $this->Country;
+   }
+   
+   public function setOrganization($val){
+   	$this->Organization=$val;
+   }
+   
+   public function getOrganization(){
+   	return $this->Organization;
+   }
+   
+   public function setOrganizationEmail($val){
+   	$this->OrganizationEmail=$val;
+   }
+   
+   public function getOrganizationEmail(){
+   	return $this->OrganizationEmail;
    }
    
 }

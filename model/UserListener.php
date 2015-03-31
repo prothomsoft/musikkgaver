@@ -149,7 +149,7 @@ class model_UserListener extends MachII_framework_Listener {
 			}
 			if($aRow[0] != 3) {
 				$sOutput .= '"<a class=\"anchor_link\" href=\"index.php?event=showEditUserApprovedForm&userId='.$aRow[0].'\">Edit</a>';
-				$sOutput .= ' | <a class=\"anchor_link\" href=\"index.php?event=executeRemoveUsersApprovedAction&userId='.$aRow[0].'\" onclick=\"return confirm(\'Are you sure you want to remove this record?\')\">Rremove</a>",';	
+				$sOutput .= ' | <a class=\"anchor_link\" href=\"index.php?event=executeRemoveUsersApprovedAction&userId='.$aRow[0].'\" onclick=\"return confirm(\'Are you sure you want to remove this record?\')\">Remove</a>",';	
 			} else {
 				$sOutput .= '"<a class=\"anchor_link\" href=\"index.php?event=showEditUserApprovedForm&userId='.$aRow[0].'\">Edit</a>",';
 			}

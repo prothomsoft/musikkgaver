@@ -19,6 +19,9 @@
 <div class="ui-helper-clearfix spacer"></div>
 
 <div class="ui-widget-content ui-corner-bottom center-content">
+	<div><p style="color:red">Please note that this image <strong>MUST HAVE 800x600px</strong> and it is resized to 480x360px and 140x105px automatically.<br/>
+	If your image has different size please put it on white background with proper size (800x600px).<br/><br/></p></div>
+
 	<div style="height:50px;">
 		<div style="float:left">
 			<input type="file" name="uploadify" id="uploadify" />

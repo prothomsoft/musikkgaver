@@ -36,14 +36,24 @@ $SN = $objAppSession->getSession('SN');
 								<?foreach($arrProducts as $objProduct) {?>
 									<div class="col-xs-6 col-sm-4 col-lg-4 col-md-4">
 				                        <div class="thumbnail">
-										      <div class="category_caption_header vertical-align">
-												 <div class="width_help"><strong><?=$objProduct->getName();?> - <?=$objProduct->getExtName();?></strong></div>							        
+										      <div class="category_caption_header" style="padding-top:20px;">
+										        <table width="100%">
+										            <tr><td align="center" style="text-transform: uppercase;">
+										                <?if($objProduct->getExtName() != "") {?>
+                                                            <span style="color:#000"><strong><?=$objProduct->getName();?> - <?=$objProduct->getExtName();?></strong></span>                                  
+                                                        <?} else {?>
+                                                            <span style="color:#000"><strong><?=$objProduct->getName();?></strong></span>        
+                                                        <?}?>
+										            </td></tr>										            
+										        </table>												
 										      </div>
 										      <img src="<?=$SN?>upload/thumb/<?=$objProduct->getImgDriveName();?>">
 										      <div class="category_caption_footer">
 										      	<p>Pris: <?=$objProduct->getPrice();?> NOK</p>
-										        <div class="padding_help"><a href="<?=$SN?>product/<?=$objProduct->getSeoName();?>/<?=$objProduct->getProductId()?>/<?=$objProduct->getBetaId()?>.html" class="btn btn-default width_help" role="button">Les mer</a></div>
-										        <div><a href="<?=$SN?>executeAddShoppingCartAction<?=$urlExtension?>/<?=$objProduct->getProductId()?>.html" class="btn btn-default width_help" role="button">Legg i Handlekurven</a></div>
+										      	<div class="padding_help"><a href="<?=$SN?>product/<?=$objProduct->getSeoName();?>/<?=$objProduct->getProductId()?>/<?=$objProduct->getBetaId()?>.html" class="btn btn-default width_help" role="button">Les mer</a></div>
+										      	<?if($objProduct->getInStock() > 0) {?>
+										      		<div><a href="<?=$SN?>executeAddShoppingCartAction<?=$urlExtension?>/<?=$objProduct->getProductId()?>.html" class="btn btn-default width_help" role="button">Legg i Handlekurven</a></div>
+										      	<?}?>									        
 										      </div>
 									    </div>
 								    </div>

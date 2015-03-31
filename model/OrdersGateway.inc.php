@@ -11,7 +11,7 @@ class OrdersGateway {
    public function findByUserId($userId){
    		$DB = new DB();
       	$DB->connect();
-   	  	$query  = "SELECT OrderId,UserId,CreateDate,AuthorizeDate,AuthorizeStatus,AuthorizeMail,CustomerInformation,Comments,Amount,IsSend,IsPointed,PointComment,ShipName,PaymentName,ShipPrice,NameFirst,NameLast,Street,Number,Zip,City,Phone1,Country ";
+   	  	$query  = "SELECT OrderId,UserId,CreateDate,AuthorizeDate,AuthorizeStatus,AuthorizeMail,CustomerInformation,Comments,Amount,IsSend,IsPointed,PointComment,ShipName,PaymentName,ShipPrice,NameFirst,NameLast,Street,Number,Zip,City,Phone1,Country,Organization,OrganizationEmail ";
       	$query .= "FROM Orders ";
       	$query .= "WHERE UserId = '".$userId."' ";
       	$query .= "ORDER BY AuthorizeDate DESC ";
@@ -45,6 +45,8 @@ class OrdersGateway {
 				      $objOrdersBean->setCity($DB->getField("City"));
 				      $objOrdersBean->setPhone1($DB->getField("Phone1"));
 				      $objOrdersBean->setCountry($DB->getField("Country"));
+				      $objOrdersBean->setOrganization($DB->getField("Organization"));
+				      $objOrdersBean->setOrganizationEmail($DB->getField("OrganizationEmail"));
 			      	$arr[] = $objOrdersBean;
 	   			}
       }
@@ -70,7 +72,7 @@ class OrdersGateway {
    	
 		$DB = new DB();
 		$DB->connect();
-		$query  = "SELECT OrderId,UserId,CreateDate,AuthorizeDate,AuthorizeStatus,AuthorizeMail,CustomerInformation,Comments,Amount,IsSend,IsPointed,PointComment,ShipName,PaymentNam,ShipPrice,NameFirst,NameLast,Street,Number,Zip,City,Phone1,Country ";
+		$query  = "SELECT OrderId,UserId,CreateDate,AuthorizeDate,AuthorizeStatus,AuthorizeMail,CustomerInformation,Comments,Amount,IsSend,IsPointed,PointComment,ShipName,PaymentNam,ShipPrice,NameFirst,NameLast,Street,Number,Zip,City,Phone1,Country,Organization,OrganizationEmail ";
 		$query .= "FROM Orders ";
 		$query .= "WHERE UserId='".$userId."' ";
 		$query .= "ORDER BY AuthorizeDate DESC ";
@@ -105,6 +107,8 @@ class OrdersGateway {
 			      $objOrdersBean->setCity($DB->getField("City"));
 			      $objOrdersBean->setPhone1($DB->getField("Phone1"));
 			      $objOrdersBean->setCountry($DB->getField("Country"));
+			      $objOrdersBean->setOrganization($DB->getField("Organization"));
+			      $objOrdersBean->setOrganizationEmail($DB->getField("OrganizationEmail"));
 		      	  $arr[] = $objOrdersBean;
 				}
 		}

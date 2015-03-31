@@ -39,10 +39,10 @@ $oT = new Translator('template3',$sLang);
 							<div class="col-xs-6 col-sm-6 col-md-3">
 								<h2>Meld deg på vårt nyhetsbrev</h2>
 								<p>Få de siste nyhetene sendt direkte til din epost</p>
-								<form class="form-inline form-newsletter" role="form">
+								<form class="form-inline form-newsletter" role="form" method="post" action="<?=$SN;?>executeNewsletterAction.html">
 									<div class="form-group">
 										<label class="sr-only" for="exampleInputEmail2">Epost</label>
-										<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Skriv inn din epost her ">
+										<input type="email" class="form-control" id="exampleInputEmail2" name="email">
 									</div>
 									<button type="submit" class="btn"><i class="fa fa-caret-right"></i></button>
 								</form>

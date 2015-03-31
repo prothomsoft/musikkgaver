@@ -354,18 +354,16 @@ class model_ProductListener extends MachII_framework_Listener
 		
 		
 		
-		//if($SN == "127.0.0.1/music/") {
-			$all = stripslashes("\'all\'");
+		//if($SN == "127.0.0.1/musikkgaver/") {
+//			$all = stripslashes("\'all\'");
 		//} else {
 			//$all = "\'all\'";
 		//}
 		
-		if ($productCategorySeoName != $all)	{
-		// before upload if ($productCategorySeoName != "\'all\'")	{
-			$sWhere = "WHERE ";
-			$sWhere .= "ProductCategoryLevelTwoSeoName IN (".stripslashes($productCategorySeoName).") ";
-			$sWhere .= " OR ProductCategoryLevelOneSeoName IN (".stripslashes($productCategorySeoName).") ";
-		}
+		//if ($productCategorySeoName != $all)	{
+		// if ($productCategorySeoName != "\'all\'")	{
+			
+		//}
 		
 		// get data to display
 		$sQuery = "
@@ -375,6 +373,7 @@ class model_ProductListener extends MachII_framework_Listener
 			$sOrder
 			$sLimit
 		";
+		
 		$rResult = $DB->query($sQuery);
 		
 		// data set length after filtering
@@ -886,20 +885,20 @@ class model_ProductListener extends MachII_framework_Listener
 			$event->setArg('ProductIdLink5', $ProductIdLink5);
 		}
 		
-		// Box ---------->
-		if($event->isArgDefined('Box') && $event->getArg('Box') != "") {
-			$box = htmlspecialchars(trim($event->getArg('Box')), ENT_QUOTES,'UTF-8',true);
-			$objProductBean->setBox($box);
+		// InStock ---------->
+		if($event->isArgDefined('InStock') && $event->getArg('InStock') != "") {
+			$InStock = htmlspecialchars(trim($event->getArg('InStock')), ENT_QUOTES,'UTF-8',true);
+			$objProductBean->setInStock($InStock);
 			$objProductDao->update($objProductBean);						
 		}
-		if($event->isArgDefined('Box') && $event->getArg('Box') == "") {
-			$Box = "0";
-			$objProductBean->setBox($Box);
+		if($event->isArgDefined('InStock') && $event->getArg('InStock') == "") {
+			$InStock = "0";
+			$objProductBean->setInStock($InStock);
 			$objProductDao->update($objProductBean);
 		}
-		if($objProductBean->getBox() != "") {
-			$Box = $objProductBean->getBox(); 
-			$event->setArg('Box', $Box);
+		if($objProductBean->getInStock() != "") {
+			$InStock = $objProductBean->getInStock(); 
+			$event->setArg('InStock', $InStock);
 		}
 		
 		// Delivery ---------->
@@ -1008,6 +1007,13 @@ class model_ProductListener extends MachII_framework_Listener
 	function findAll(&$event) {
 		$objProductGateway = new ProductGateway();
 		$arrProducts = $objProductGateway->findAll();
+		$event->setArg("arrProducts", $arrProducts);
+	}
+	
+	function findSearchAll(&$event) {
+		$keyword = $event->getArg("keyword");
+		$objProductGateway = new ProductGateway();
+		$arrProducts = $objProductGateway->findSearchAll($keyword);
 		$event->setArg("arrProducts", $arrProducts);
 	}
 	
@@ -1142,7 +1148,7 @@ class model_ProductListener extends MachII_framework_Listener
       
      	$arrQueue = $event->getArg('arrQueue');
 		$nProduct = count($arrQueue);
-		$objPagination = new pagination($nProduct,50); 
+		$objPagination = new pagination($nProduct,100); 
     	$arrPagination = $objPagination->paginate("ProductList",$page);
     	$event->setArg('arrPagination',$arrPagination);
    }  

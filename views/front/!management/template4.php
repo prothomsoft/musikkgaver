@@ -96,6 +96,38 @@ $oT = new Translator('template3',$sLang);
 				echo $event->getArg('nShoppingCartView');
 			}?>
 			
+			<?if ($event->getArg('nOrderAddressView') != "") {
+				echo $event->getArg('nOrderAddressView');
+			}?>
+			
+			<?if ($event->getArg('nOrderPaymentView') != "") {
+				echo $event->getArg('nOrderPaymentView');
+			}?>
+			
+			<?if ($event->getArg('nOnlineStoreView') != "") {
+				echo $event->getArg('nOnlineStoreView');
+			}?>
+			
+			<?if ($event->getArg('nOkView') != "") {
+				echo $event->getArg('nOkView');
+			}?>
+			
+			<?if ($event->getArg('nErrorView') != "") {
+				echo $event->getArg('nErrorView');
+			}?>
+			
+			<?if ($event->getArg('nOnlineMemberView') != "") {
+				echo $event->getArg('nOnlineMemberView');
+			}?>
+			
+			<?if ($event->getArg('newsletterConfirmationView') != "") {
+				echo $event->getArg('newsletterConfirmationView');
+			}?>
+			
+			<?if ($event->getArg('newsletterFormView') != "") {
+				echo $event->getArg('newsletterFormView');
+			}?>
+			
 			<?if ($event->getArg('loginFormView') != "") {
 				echo $event->getArg('loginFormView');
 			}?>

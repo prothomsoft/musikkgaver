@@ -48,11 +48,11 @@ $oT = new Translator('template3',$sLang);
 											<li class="product">
 												<div class="product-thumb-info">
 													<div class="product-thumb-info-image">
-														<a href="<?=$SN?>produkt/<?=$objProduct->getSeoName()?>/<?=$objProduct->getProductId()?>.html"><img src="<?=$SN?>upload/micro/<?=$objProduct->getImgDriveName();?>" width="60px"></a>
+														<a href="<?=$SN?>product/<?=$objProduct->getSeoName()?>/<?=$objProduct->getProductId()?>.html"><img src="<?=$SN?>upload/micro/<?=$objProduct->getImgDriveName();?>" width="60px"></a>
 													</div>
 													<div class="product-thumb-info-content">
 														<div style="float:left;">
-															<h4><a href="<?=$SN?>produkt/<?=$objProduct->getSeoName()?>/<?=$objProduct->getProductId()?>.html"><?=$objProduct->getName()?></a></h4>
+															<h4><a href="<?=$SN?>product/<?=$objProduct->getSeoName()?>/<?=$objProduct->getProductId()?>.html"><?=$objProduct->getName()?></a></h4>
 															<span class="price"><?=$objProduct->getPrice();?> NOK</span>
 															
 														</div>

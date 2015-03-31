@@ -10,7 +10,8 @@ class NewsletterDao{
       $DB = new DB();
       $DB->connect();
       $query = "INSERT INTO `Newsletter` (Email,CreateDate) ";
-      $query.= "VALUES('".$objNewsletterBean->getEmail()."','".$objNewsletterBean->getCreateDate()."') ";
+      $query.= "VALUES ('".$objNewsletterBean->getEmail()."','".$objNewsletterBean->getCreateDate()."') ";
+      
       $DB->query($query);
       return $DB->getLast();
    }

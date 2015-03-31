@@ -34,17 +34,34 @@ $SN = $objAppSession->getSession('SN');
                     <div class="col-md-9">
                     	<div class="row">
                             <div class="col-sm-6 col-lg-6 col-md-6">
-		                        <div class="category_caption_header vertical-align"  style="padding-top:40px;">
-									<div class="width_help"><strong><?=$objProduct->getName();?> - <?=$objProduct->getExtName();?></strong></div>							        
-								</div>								      
-								<div class="category_caption_footer" style="padding-top:10px;">
-									<p>Pris: <?=$objProduct->getPrice();?> NOK</p>
-									<div class="padding_help"><a href="<?=$SN?>executeAddShoppingCartAction/<?=$objProduct->getProductId();?>.html" class="btn btn-default width_help" role="button">Legg I Handlekurven</a></div>
+		                        <div class="category_caption_header" style="padding-top:20px;">
+                                    <table width="100%">
+                                        <tr><td align="center" style="text-transform: uppercase;">
+                                            <?if($objProduct->getExtName() != "") {?>
+                                                <span style="color:#000"><strong><?=$objProduct->getName();?> - <?=$objProduct->getExtName();?></strong></span>                                  
+                                            <?} else {?>
+                                                <span style="color:#000"><strong><?=$objProduct->getName();?></strong></span>
+                                            <?}?>
+                                        </td></tr>                                                  
+                                    </table>                                                
+                                </div>							      
+								<div class="category_caption_footer" style="padding-top:0px; height:250px;">
+									<p>Pris: <?=$objProduct->getPrice();?> NOK<br/>
+									<?if($objProduct->getInStock() > 0) {?>
+										Leveringstid: <?=$objProduct->getDelivery();?><br/>
+										Lagerbeholdning: <?=$objProduct->getInStock();?></p>
+									<?} else {?>
+										Leveringstid: -<br/>
+										Lagerbeholdning: Ikke på lager. <br/>Bestillingstid vil variere.<br/> Ta kontakt.</p>
+									<?}?>
+									<?if($objProduct->getInStock() > 0) {?>
+										<div class="padding_help"><a href="<?=$SN?>executeAddShoppingCartAction/<?=$objProduct->getProductId();?>.html" class="btn btn-default width_help" role="button">Legg I Handlekurven</a></div>
+									<?}?>
 									<div><a href="<?=$SN;?>products/<?=$objProduct->getBetaId();?>.html" class="btn btn-default width_help" role="button">Fortsett å handle</a></div>
 								</div>								
 		                    </div>
 		                    <div class="col-sm-6 col-lg-6 col-md-6">
-		                    	<div style="padding-top:20px;">
+		                    	<div>
 			                    	<div class="thumbnail">
 			                    		 <a title="<?=$objProduct->getName()?>" href="<?=$SN?>upload/proper/<?=$objProduct->getImgDriveName();?>" rel="prettyPhoto[gallery0]"><img src="<?=$SN?>upload/thumb/<?=$objProduct->getImgDriveName();?>" /></a>
 								    </div>

@@ -9,8 +9,8 @@ class ProductDao{
    public function create($objProductBean){
       $DB = new DB();
       $DB->connect();
-      $query = "INSERT INTO Product(BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus) ";
-      $query.= "VALUES('".$objProductBean->getBetaId()."','".$objProductBean->getProductCategoryId()."','".$objProductBean->getProductCategoryLevelOneName()."','".$objProductBean->getProductCategoryLevelOneSeoName()."','".$objProductBean->getProductCategoryLevelTwoName()."','".$objProductBean->getProductCategoryLevelTwoSeoName()."','".$objProductBean->getUserId()."','".$objProductBean->getName()."','".$objProductBean->getSeoName()."','".$objProductBean->getExtName()."','".$objProductBean->getCode()."','".$objProductBean->getShortDescription()."','".$objProductBean->getPreviewDescription()."','".$objProductBean->getLongDescription()."','".$objProductBean->getContactDescription()."','".$objProductBean->getHDescription()."','".$objProductBean->getCreationDate()."','".$objProductBean->getUpdateDate()."','".$objProductBean->getProductOrder()."','".$objProductBean->getHomeProductOrder()."','".$objProductBean->getStatus()."','".$objProductBean->getIsBestProduct()."','".$objProductBean->getIsHomeProduct()."','".$objProductBean->getIsAvailable()."','".$objProductBean->getIsVisible()."','".$objProductBean->getImgDriveName()."','".$objProductBean->getImgFileName()."','".$objProductBean->getImgAlt()."','".$objProductBean->getPrice()."','".$objProductBean->getPriceOld()."','".$objProductBean->getWeight()."','".$objProductBean->getProductType()."','".$objProductBean->getProducerName()."','".$objProductBean->getProductIdLink1()."','".$objProductBean->getProductIdLink2()."','".$objProductBean->getProductIdLink3()."','".$objProductBean->getProductIdLink4()."','".$objProductBean->getProductIdLink5()."','".$objProductBean->getBox()."','".$objProductBean->getDelivery()."','".$objProductBean->getPoints()."','".$objProductBean->getPointsMinus()."') ";
+      $query = "INSERT INTO Product(BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus) ";
+      $query.= "VALUES('".$objProductBean->getBetaId()."','".$objProductBean->getProductCategoryId()."','".$objProductBean->getProductCategoryLevelOneName()."','".$objProductBean->getProductCategoryLevelOneSeoName()."','".$objProductBean->getProductCategoryLevelTwoName()."','".$objProductBean->getProductCategoryLevelTwoSeoName()."','".$objProductBean->getUserId()."','".$objProductBean->getName()."','".$objProductBean->getSeoName()."','".$objProductBean->getExtName()."','".$objProductBean->getCode()."','".$objProductBean->getShortDescription()."','".$objProductBean->getPreviewDescription()."','".$objProductBean->getLongDescription()."','".$objProductBean->getContactDescription()."','".$objProductBean->getHDescription()."','".$objProductBean->getCreationDate()."','".$objProductBean->getUpdateDate()."','".$objProductBean->getProductOrder()."','".$objProductBean->getHomeProductOrder()."','".$objProductBean->getStatus()."','".$objProductBean->getIsBestProduct()."','".$objProductBean->getIsHomeProduct()."','".$objProductBean->getIsAvailable()."','".$objProductBean->getIsVisible()."','".$objProductBean->getImgDriveName()."','".$objProductBean->getImgFileName()."','".$objProductBean->getImgAlt()."','".$objProductBean->getPrice()."','".$objProductBean->getPriceOld()."','".$objProductBean->getWeight()."','".$objProductBean->getProductType()."','".$objProductBean->getProducerName()."','".$objProductBean->getProductIdLink1()."','".$objProductBean->getProductIdLink2()."','".$objProductBean->getProductIdLink3()."','".$objProductBean->getProductIdLink4()."','".$objProductBean->getProductIdLink5()."','".$objProductBean->getInStock()."','".$objProductBean->getDelivery()."','".$objProductBean->getPoints()."','".$objProductBean->getPointsMinus()."') ";
       $DB->query($query);
       return $DB->getLast();
    }
@@ -56,7 +56,7 @@ class ProductDao{
       $query.="ProductIdLink3='".$objProductBean->getProductIdLink3()."',";
       $query.="ProductIdLink4='".$objProductBean->getProductIdLink4()."',";
       $query.="ProductIdLink5='".$objProductBean->getProductIdLink5()."',";
-      $query.="Box='".$objProductBean->getBox()."',";
+      $query.="InStock='".$objProductBean->getInStock()."',";
       $query.="Delivery='".$objProductBean->getDelivery()."',";
       $query.="Points='".$objProductBean->getPoints()."',";
       $query.="PointsMinus='".$objProductBean->getPointsMinus()."' ";
@@ -66,7 +66,7 @@ class ProductDao{
    public function read($id){
       $DB = new DB();
       $DB->connect();
-      $query="SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus FROM Product";
+      $query="SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus FROM Product";
       $query.=" WHERE ProductId=".$id;
       $DB->query($query);
       $objProductBean= new ProductBean();
@@ -109,7 +109,7 @@ class ProductDao{
       $objProductBean->setProductIdLink3($DB->getField("ProductIdLink3"));
       $objProductBean->setProductIdLink4($DB->getField("ProductIdLink4"));
       $objProductBean->setProductIdLink5($DB->getField("ProductIdLink5"));
-      $objProductBean->setBox($DB->getField("Box"));
+      $objProductBean->setInStock($DB->getField("InStock"));
       $objProductBean->setDelivery($DB->getField("Delivery"));
       $objProductBean->setPoints($DB->getField("Points"));
       $objProductBean->setPointsMinus($DB->getField("PointsMinus"));
@@ -120,7 +120,7 @@ class ProductDao{
    public function readBySeoName($SeoName){
       $DB = new DB();
       $DB->connect();
-      $query="SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus  FROM Product";
+      $query="SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus  FROM Product";
       $query.=" WHERE SeoName='".$SeoName."'";
       $DB->query($query);
       $objProductBean= new ProductBean();
@@ -163,7 +163,7 @@ class ProductDao{
       $objProductBean->setProductIdLink3($DB->getField("ProductIdLink3"));
       $objProductBean->setProductIdLink4($DB->getField("ProductIdLink4"));
       $objProductBean->setProductIdLink5($DB->getField("ProductIdLink5"));
-      $objProductBean->setBox($DB->getField("Box"));
+      $objProductBean->setInStock($DB->getField("InStock"));
       $objProductBean->setDelivery($DB->getField("Delivery"));
       $objProductBean->setPoints($DB->getField("Points"));
       $objProductBean->setPointsMinus($DB->getField("PointsMinus"));

@@ -12,11 +12,11 @@ $oT = new Translator('template3',$sLang);
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<p class="clearfix"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button></p>
-				<form class="form-inline form-search" role="form">
+				<form class="form-inline form-search" role="form" method="post" action="<?=$SN;?>searchResults.html">
 					<input type="hidden" name="form_SN" id="form_SN" value="<?=$SN;?>"/>
 					<div class="form-group">
 						<label class="sr-only" for="textsearch">Enter text search</label>
-						<input type="text" class="form-control input-lg" id="textsearch" placeholder="Enter text search">
+						<input type="text" class="form-control input-lg" id="textsearch" name="keyword" placeholder="Enter text search">
 					</div>
 					<button type="submit" class="btn btn-white" style="padding: 14px 15px 13px;">Search</button>
 				</form>

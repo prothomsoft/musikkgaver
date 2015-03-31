@@ -44,7 +44,7 @@ class ProductBean{
    private $ProductIdLink3;
    private $ProductIdLink4;
    private $ProductIdLink5;
-   private $Box;
+   private $InStock;
    private $Delivery;
    private $Points;
    private $PointsMinus;
@@ -380,12 +380,12 @@ class ProductBean{
       return $this->ProductIdLink5;
    }
    
-   public function setBox($val){
-      $this->Box=$val;
+   public function setInStock($val){
+      $this->InStock=$val;
    }
 
-   public function getBox(){
-      return $this->Box;
+   public function getInStock(){
+      return $this->InStock;
    }
    
    public function setDelivery($val){

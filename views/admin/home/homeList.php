@@ -11,16 +11,6 @@
 		
 		<div class="ui-helper-clearfix spacer">
 		</div>
-				
-		<div class="ui-widget-content ui-corner-all center-header">
-			<p>News</p>
-			<p>&nbsp;</p>
-			<span class="wizardButton"><a href="index.php?event=showSigmasList">List of News Entries</a><span>
-			<span class="wizardButton"><a href="index.php?event=showSigmaStep1">Add News Entry</a><span>			
-		</div>
-				
-		<div class="ui-helper-clearfix spacer">
-		</div>
 		
 		<div class="ui-widget-content ui-corner-all center-header">
 			<p>Content Management System (CMS)</p>
@@ -71,20 +61,16 @@
 		<div class="ui-helper-clearfix spacer">
 		</div>
 		
-		<div class="ui-widget-content ui-corner-all center-header">
-			<p>Members</p>
-			<p>&nbsp;</p>
-			<span class="wizardButton"><a href="index.php?event=showMemberList">List of Members</a><span>
-		</div>
-		
-		<div class="ui-helper-clearfix spacer">
-		</div>
-						
+		<?/*?>
 		<div class="ui-widget-content ui-corner-all center-header">
 			<p>File Manager</p>
 			<p>&nbsp;</p>
 			<span class="wizardButton"><a href="index.php?event=showUpdateCategoryList">Manage Files</a><span>
 		</div>
+		
+		<div class="ui-helper-clearfix spacer">
+		</div>
+		<?*/?>
 		
 		<div class="ui-widget-content ui-corner-all center-header">
 			<p>Users</p>
@@ -93,6 +79,15 @@
 			<span class="wizardButton"><a href="index.php?event=showCreateUserApprovedForm">Add User</a><span>			
 		</div>
 		
+		<div class="ui-helper-clearfix spacer">
+		</div>
+		
+		<div class="ui-widget-content ui-corner-all center-header">
+			<p>Newsletter</p>
+			<p>&nbsp;</p>
+			<span class="wizardButton"><a href="index.php?event=showNewsletterList">List of Emails</a><span>						
+		</div>
+				
 		<div class="ui-helper-clearfix spacer">
 		</div>
 		

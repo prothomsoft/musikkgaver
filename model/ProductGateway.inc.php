@@ -10,7 +10,7 @@ class ProductGateway {
    public function findByListId($listId){
       $DB = new DB();
       $DB->connect();
-      $query ="SELECT P.ProductId,P.UserId,P.BetaId,P.ProductCategoryId,P.ProductCategoryLevelOneName,P.ProductCategoryLevelOneSeoName,P.ProductCategoryLevelTwoName,P.ProductCategoryLevelTwoSeoName,P.Name,P.SeoName,P.ExtName,P.Code,P.ShortDescription,P.PreviewDescription,P.LongDescription,P.ContactDescription,P.HDescription,P.CreationDate,P.UpdateDate,P.ProductOrder,P.HomeProductOrder,P.Status,P.IsBestProduct,P.IsHomeProduct,P.IsAvailable,P.IsVisible,P.ImgDriveName,P.ImgFileName,P.ImgAlt,P.Price,P.PriceOld,P.Weight,P.ProductType,P.Box,P.Delivery,P.Points,P.PointsMinus ";
+      $query ="SELECT P.ProductId,P.UserId,P.BetaId,P.ProductCategoryId,P.ProductCategoryLevelOneName,P.ProductCategoryLevelOneSeoName,P.ProductCategoryLevelTwoName,P.ProductCategoryLevelTwoSeoName,P.Name,P.SeoName,P.ExtName,P.Code,P.ShortDescription,P.PreviewDescription,P.LongDescription,P.ContactDescription,P.HDescription,P.CreationDate,P.UpdateDate,P.ProductOrder,P.HomeProductOrder,P.Status,P.IsBestProduct,P.IsHomeProduct,P.IsAvailable,P.IsVisible,P.ImgDriveName,P.ImgFileName,P.ImgAlt,P.Price,P.PriceOld,P.Weight,P.ProductType,P.InStock,P.Delivery,P.Points,P.PointsMinus ";
       $query .="FROM Product P ";
 	  $query .= "WHERE P.IsVisible=1 ";
       $query .="AND P.ProductId IN (".$listId.")";
@@ -55,7 +55,7 @@ class ProductGateway {
 			      $objProductBean->setPriceOld($DB->getField("PriceOld"));
 			      $objProductBean->setWeight($DB->getField("Weight"));
 			      $objProductBean->setProductType($DB->getField("ProductType"));
-			      $objProductBean->setBox($DB->getField("Box"));
+			      $objProductBean->setInStock($DB->getField("InStock"));
 			      $objProductBean->setDelivery($DB->getField("Delivery"));
 			      $objProductBean->setPoints($DB->getField("Points"));
 			      $objProductBean->setPointsMinus($DB->getField("PointsMinus"));
@@ -89,7 +89,7 @@ class ProductGateway {
    public function findAll(){
       $DB = new DB();
       $DB->connect();
-      $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus FROM Product";
+      $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus FROM Product";
       $query .= " WHERE IsVisible = 1";
       $query .= " ORDER BY ProductOrder DESC";
       $DB->query($query);
@@ -138,7 +138,7 @@ class ProductGateway {
 			      $objProductBean->setProductIdLink3($DB->getField("ProductIdLink3"));
 			      $objProductBean->setProductIdLink4($DB->getField("ProductIdLink4"));
 			      $objProductBean->setProductIdLink5($DB->getField("ProductIdLink5"));
-			      $objProductBean->setBox($DB->getField("Box"));
+			      $objProductBean->setInStock($DB->getField("InStock"));
 			      $objProductBean->setDelivery($DB->getField("Delivery"));
 			      $objProductBean->setPoints($DB->getField("Points"));
 			      $objProductBean->setPointsMinus($DB->getField("PointsMinus"));
@@ -151,7 +151,7 @@ class ProductGateway {
    public function findAllHomePage(){
       $DB = new DB();
       $DB->connect();
-      $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus FROM Product";
+      $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus FROM Product";
       $query .= " WHERE IsHomeProduct = 1";
       $query .= " ORDER BY HomeProductOrder ASC";
       $DB->query($query);
@@ -200,7 +200,7 @@ class ProductGateway {
 			      $objProductBean->setProductIdLink3($DB->getField("ProductIdLink3"));
 			      $objProductBean->setProductIdLink4($DB->getField("ProductIdLink4"));
 			      $objProductBean->setProductIdLink5($DB->getField("ProductIdLink5"));
-			      $objProductBean->setBox($DB->getField("Box"));
+			      $objProductBean->setInStock($DB->getField("InStock"));
 			      $objProductBean->setDelivery($DB->getField("Delivery"));
 			      $objProductBean->setPoints($DB->getField("Points"));
 			      $objProductBean->setPointsMinus($DB->getField("PointsMinus"));
@@ -215,7 +215,7 @@ class ProductGateway {
       
       $DB = new DB();
       $DB->connect();
-      $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus FROM Product ";
+      $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus FROM Product ";
       $query .= "WHERE IsVisible = 1 ";
 	  $query .= "AND BetaId = '".$productCategoryId."' ";
       $query .= "ORDER BY ProductOrder ASC";
@@ -266,7 +266,7 @@ class ProductGateway {
 			      $objProductBean->setProductIdLink3($DB->getField("ProductIdLink3"));
 			      $objProductBean->setProductIdLink4($DB->getField("ProductIdLink4"));
 			      $objProductBean->setProductIdLink5($DB->getField("ProductIdLink5"));
-			      $objProductBean->setBox($DB->getField("Box"));
+			      $objProductBean->setInStock($DB->getField("InStock"));
 			      $objProductBean->setDelivery($DB->getField("Delivery"));
 			      $objProductBean->setPoints($DB->getField("Points"));
 			      $objProductBean->setPointsMinus($DB->getField("PointsMinus"));
@@ -295,7 +295,7 @@ class ProductGateway {
 	   	
 	   	$DB = new DB();
 	    $DB->connect();
-	    $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus FROM Product ";
+	    $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus FROM Product ";
 	    $query .= "WHERE IsVisible = 1 ";
 		$query .= "AND BetaId = '".$productCategoryId."' ";
 		$query .= "ORDER BY ProductOrder ASC ";
@@ -346,7 +346,7 @@ class ProductGateway {
 				      $objProductBean->setProductIdLink3($DB->getField("ProductIdLink3"));
 				      $objProductBean->setProductIdLink4($DB->getField("ProductIdLink4"));
 				      $objProductBean->setProductIdLink5($DB->getField("ProductIdLink5"));
-				      $objProductBean->setBox($DB->getField("Box"));
+				      $objProductBean->setInStock($DB->getField("InStock"));
 				      $objProductBean->setDelivery($DB->getField("Delivery"));
 				      $objProductBean->setPoints($DB->getField("Points"));
 				      $objProductBean->setPointsMinus($DB->getField("PointsMinus"));
@@ -378,7 +378,7 @@ class ProductGateway {
     public function findAllByCategoryId($categoryId){
       $DB = new DB();
       $DB->connect();
-      $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,Box,Delivery,Points,PointsMinus FROM Product";
+      $query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus FROM Product";
       $query .= " WHERE IsVisible = 1";
       $query .= " AND ProductCategoryId IN (".$categoryId.")";
       $query .= " ORDER BY ProductOrder ASC";
@@ -428,7 +428,7 @@ class ProductGateway {
 			      $objProductBean->setProductIdLink3($DB->getField("ProductIdLink3"));
 			      $objProductBean->setProductIdLink4($DB->getField("ProductIdLink4"));
 			      $objProductBean->setProductIdLink5($DB->getField("ProductIdLink5"));
-			      $objProductBean->setBox($DB->getField("Box"));
+			      $objProductBean->setInStock($DB->getField("InStock"));
 			      $objProductBean->setDelivery($DB->getField("Delivery"));
 			      $objProductBean->setPoints($DB->getField("Points"));
 			      $objProductBean->setPointsMinus($DB->getField("PointsMinus"));
@@ -436,6 +436,70 @@ class ProductGateway {
       		}
       }
       return $arr;
-   }    
+   }
+
+   public function findSearchAll($keyword){
+   	$DB = new DB();
+   	$DB->connect();
+   	$query  = "SELECT ProductId,BetaId,ProductCategoryId,ProductCategoryLevelOneName,ProductCategoryLevelOneSeoName,ProductCategoryLevelTwoName,ProductCategoryLevelTwoSeoName,UserId,Name,SeoName,ExtName,Code,ShortDescription,PreviewDescription,LongDescription,ContactDescription,HDescription,CreationDate,UpdateDate,ProductOrder,HomeProductOrder,Status,IsBestProduct,IsHomeProduct,IsAvailable,IsVisible,ImgDriveName,ImgFileName,ImgAlt,Price,PriceOld,Weight,ProductType,ProducerName,ProductIdLink1,ProductIdLink2,ProductIdLink3,ProductIdLink4,ProductIdLink5,InStock,Delivery,Points,PointsMinus FROM Product";
+   	$query .= " WHERE IsVisible = 1";
+   	$query .= " AND Name like '%".$keyword."%'";
+   	$query .= " OR LongDescription like '%".$keyword."%'";
+   	$query .= " ORDER BY ProductOrder DESC";
+   	$DB->query($query);
+   	$arr = "";
+   	if ($DB->numRows()>0)
+   	{
+   		while($DB->move_next())
+   		{
+   			$objProductBean= new ProductBean();
+   			$objProductBean->setProductId($DB->getField("ProductId"));
+   			$objProductBean->setBetaId($DB->getField("BetaId"));
+   			$objProductBean->setProductCategoryId($DB->getField("ProductCategoryId"));
+   			$objProductBean->setProductCategoryLevelOneName($DB->getField("ProductCategoryLevelOneName"));
+   			$objProductBean->setProductCategoryLevelOneSeoName($DB->getField("ProductCategoryLevelOneSeoName"));
+   			$objProductBean->setProductCategoryLevelTwoName($DB->getField("ProductCategoryLevelTwoName"));
+   			$objProductBean->setProductCategoryLevelTwoSeoName($DB->getField("ProductCategoryLevelTwoSeoName"));
+   			$objProductBean->setUserId($DB->getField("UserId"));
+   			$objProductBean->setName($DB->getField("Name"));
+   			$objProductBean->setSeoName($DB->getField("SeoName"));
+   			$objProductBean->setExtName($DB->getField("ExtName"));
+   			$objProductBean->setCode($DB->getField("Code"));
+   			$objProductBean->setShortDescription($DB->getField("ShortDescription"));
+   			$objProductBean->setPreviewDescription($DB->getField("PreviewDescription"));
+   			$objProductBean->setLongDescription($DB->getField("LongDescription"));
+   			$objProductBean->setContactDescription($DB->getField("ContactDescription"));
+   			$objProductBean->setHDescription($DB->getField("HDescription"));
+   			$objProductBean->setCreationDate($DB->getField("CreationDate"));
+   			$objProductBean->setUpdateDate($DB->getField("UpdateDate"));
+   			$objProductBean->setProductOrder($DB->getField("ProductOrder"));
+   			$objProductBean->setHomeProductOrder($DB->getField("HomeProductOrder"));
+   			$objProductBean->setStatus($DB->getField("Status"));
+   			$objProductBean->setIsBestProduct($DB->getField("IsBestProduct"));
+   			$objProductBean->setIsHomeProduct($DB->getField("IsHomeProduct"));
+   			$objProductBean->setIsAvailable($DB->getField("IsAvailable"));
+   			$objProductBean->setIsVisible($DB->getField("IsVisible"));
+   			$objProductBean->setImgDriveName($DB->getField("ImgDriveName"));
+   			$objProductBean->setImgFileName($DB->getField("ImgFileName"));
+   			$objProductBean->setImgAlt($DB->getField("ImgAlt"));
+   			$objProductBean->setPrice($DB->getField("Price"));
+   			$objProductBean->setPriceOld($DB->getField("PriceOld"));
+   			$objProductBean->setWeight($DB->getField("Weight"));
+   			$objProductBean->setProductType($DB->getField("ProductType"));
+   			$objProductBean->setProducerName($DB->getField("ProducerName"));
+   			$objProductBean->setProductIdLink1($DB->getField("ProductIdLink1"));
+   			$objProductBean->setProductIdLink2($DB->getField("ProductIdLink2"));
+   			$objProductBean->setProductIdLink3($DB->getField("ProductIdLink3"));
+   			$objProductBean->setProductIdLink4($DB->getField("ProductIdLink4"));
+   			$objProductBean->setProductIdLink5($DB->getField("ProductIdLink5"));
+   			$objProductBean->setInStock($DB->getField("InStock"));
+   			$objProductBean->setDelivery($DB->getField("Delivery"));
+   			$objProductBean->setPoints($DB->getField("Points"));
+   			$objProductBean->setPointsMinus($DB->getField("PointsMinus"));
+   			$arr[] = $objProductBean;
+   		}
+   	}
+   	return $arr;
+   }
 }
 ?>

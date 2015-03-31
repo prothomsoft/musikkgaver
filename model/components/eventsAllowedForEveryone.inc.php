@@ -26,6 +26,10 @@ class EventsAllowedForEveryone {
       zamowienie_adres,
       zamowienie_platnosc,
       zamowienie_potwierdzenie,
+			
+	  orderaddress,
+	  orderpayment,
+	  searchresults,
       
       // USERACCOUNT
       moje_konto_start,
@@ -62,8 +66,7 @@ class EventsAllowedForEveryone {
 	  fotografia_slubna_krakow_slub,
 	  fotografia_slubna_krakow_wesele,
 	  fotografia_slubna_krakow_plener,*/
-	  facebook_close2you,
-	  executenewsletteraction,
+	  facebook_close2you,	  
 	  
 	  // platnosci
 	  payment_ok,
@@ -71,15 +74,15 @@ class EventsAllowedForEveryone {
 	  payment_online_member,
 	  payment_online_store,
 	  
-	  // newsletter
+	  // contact
 	  contact_form,
 	  executecontactaction,
 	  contact_form_confirmation,
 	  
-	  // rezerwacja
-	  membership,
-	  membership_confirmation,
-	  executemembershipaction,
+	  // newsletter
+	  newsletter,
+	  executenewsletteraction,
+	  newsletterconfirmation,	  
 	  
 	  // wskazowki_dojazdu
 	  
